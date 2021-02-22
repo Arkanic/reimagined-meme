@@ -16,7 +16,7 @@ module.exports = {
         "./src/client/index.ts"
     ],
     output: {
-        filename: "[contenthash].js",
+        filename: "[name].[contenthash].js",
         path: path.resolve(__dirname, "dist")
     },
     optimization: {
