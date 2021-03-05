@@ -1,7 +1,7 @@
 import io from "socket.io";
 import Player from "./player";
 import Vector2 from "./types/vector2";
-import InputObject from "./types/inputObject";
+import * as Data from "../shared/inputObject";
 import * as Serialized from "./types/serializedData";
 
 import constants from "../shared/constants";
@@ -19,11 +19,12 @@ class Game {
         setInterval(this.update.bind(this), 10); // .bind() makes it run on the local scope, rather than having update() run on the default values for the class
     }
 
-    addPlayer(socket:io.Socket, username:string):void {
+    addPlayer(socket:io.Socket, data:Data.Join):void {
         this.sockets[socket.id] = socket;
 
         const position:Vector2 = new Vector2(constants.mapSize * (0.25 + Math.random() * 0.5), constants.mapSize * (0.25 + Math.random() * 0.5));
-        this.players[socket.id] = new Player(socket.id, position, username);
+        const screen:Vector2 = new Vector2(data.screenWidth, data.screenHeight);
+        this.players[socket.id] = new Player(socket.id, position, screen, data.username);
     }
 
     removePlayer(socket:io.Socket):void {
@@ -31,7 +32,7 @@ class Game {
         delete this.players[socket.id];
     }
 
-    handleInput(socket:io.Socket, state:InputObject):void {
+    handleInput(socket:io.Socket, state:Data.Input):void {
         if(!this.players[socket.id]) return;
         this.players[socket.id].translateInput(state);
     }

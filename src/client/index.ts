@@ -1,11 +1,11 @@
 import "./css/main.scss";
 
-import networking from "./ts/networking";
+import * as networking from "./ts/networking";
 
 console.log("hi");
 
 Promise.all([
-    networking
+    networking.connect
 ]).then(() => {
 
 });

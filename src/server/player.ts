@@ -2,20 +2,23 @@ import constants from "../shared/constants";
 
 import Entity from "./entity";
 import Vector2 from "./types/vector2";
-import InputObject from "./types/inputObject";
+import * as Data from "../shared/inputObject";
 
 class Player extends Entity {
     username:string;
     health:number;
+    screen:Vector2;
 
-    constructor(id:string, position:Vector2, username:string) {
+    constructor(id:string, position:Vector2, screen:Vector2, username:string) {
         super(id, position, constants.player.maxSpeed);
+
+        this.screen = screen;
 
         this.username = username;
         this.health = constants.player.defaultHealth;
     }
 
-    translateInput(state:InputObject):void {
+    translateInput(state:Data.Input):void {
         let delta = new Vector2(0, 0);
         let speed = constants.player.speed;
         if(state.keys.w) delta.y -= speed;

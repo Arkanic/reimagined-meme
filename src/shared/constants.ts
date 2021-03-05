@@ -6,6 +6,10 @@ const constants:{[unit:string]:any} = Object.freeze({
     },
     map: {
         size: 2000
+    },
+    msg: {
+        join: "joingame",
+        input: "inputsend"
     }
 });
 

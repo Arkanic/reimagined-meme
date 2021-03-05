@@ -1,4 +1,4 @@
-interface InputObject {
+export interface Input {
     mouseX:number;
     mouseY:number;
     clicking:boolean;
@@ -11,4 +11,8 @@ interface InputObject {
     }
 }
 
-export default InputObject;
+export interface Join {
+    username:string;
+    screenWidth:number;
+    screenHeight:number;
+}
