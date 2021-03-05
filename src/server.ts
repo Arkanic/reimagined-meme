@@ -22,6 +22,8 @@ io.on("connection", function(socket:socketio.Socket) {
     console.log("A user connected.");
     socket.on(msg.join, joinGame);
     socket.on(msg.input, handleInput);
+
+    socket.on("disconnect", disconnect);
 });
 
 const server:http.Server = protoServer.listen(8080, function() {
@@ -52,4 +54,8 @@ function handleInput(this:socketio.Socket, data:any):void {
         }
     }
     game.handleInput(this, cleanedData);
+}
+
+function disconnect(this:socketio.Socket) {
+    game.removePlayer(this);
 }

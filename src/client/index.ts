@@ -5,7 +5,7 @@ import * as networking from "./ts/networking";
 console.log("hi");
 
 Promise.all([
-    networking.connect
+    networking.connect()
 ]).then(() => {
     networking.play("test", window.innerWidth, window.innerHeight);
 });

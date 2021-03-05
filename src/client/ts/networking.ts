@@ -14,7 +14,8 @@ const connected:Promise<void> = new Promise((resolve) => {
 });
 
 export const connect = ():void => {
-    connected.then(() => {
+    connected.then((working) => {
+        console.log("Started handlers");
         socket.on(constants.msg.update, handleGameUpdate);
     });
 }

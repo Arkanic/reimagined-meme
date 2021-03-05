@@ -22,7 +22,7 @@ class Game {
     addPlayer(socket:io.Socket, data:Data.Join):void {
         this.sockets[socket.id] = socket;
 
-        const position:Vector2 = new Vector2(constants.mapSize * (0.25 + Math.random() * 0.5), constants.mapSize * (0.25 + Math.random() * 0.5));
+        const position:Vector2 = new Vector2(Math.floor(constants.map.size * (0.25 + Math.random() * 0.5)), Math.floor(constants.map.size * (0.25 + Math.random() * 0.5)));
         const screen:Vector2 = new Vector2(data.screenWidth, data.screenHeight);
         this.players[socket.id] = new Player(socket.id, position, screen, data.username);
     }
