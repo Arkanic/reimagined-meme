@@ -34,7 +34,7 @@ let game = new Game();
 
 function joinGame(this:socketio.Socket, data:any):void {
     let cleanedData:Data.Join = {
-        username:data.username || `Player#${Math.floor(Math.random()*1000)}`,
+        username:data.username || `Player#${Math.floor(Math.random()*10000)}`,
         screenWidth:data.screenWidth || 1600,
         screenHeight:data.screenHeight || 900
     };
