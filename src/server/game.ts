@@ -43,6 +43,8 @@ class Game {
             const player = this.players[id];
 
             player.update();
+
+            socket.emit(constants.msg.update, this.createUpdate(player));
         });
     }
 

@@ -9,7 +9,8 @@ const constants:{[unit:string]:any} = Object.freeze({
     },
     msg: {
         join: "joingame",
-        input: "inputsend"
+        input: "inputsend",
+        update: "gameupdate"
     }
 });
 
