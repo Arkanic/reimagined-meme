@@ -1,5 +1,6 @@
 const path = require("path");
 
+const CopyWebpackPlugin = require("copy-webpack-plugin");
 const MiniCSSExtractPlugin = require("mini-css-extract-plugin");
 const {CleanWebpackPlugin} = require("clean-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
@@ -16,7 +17,7 @@ module.exports = {
         "./src/client/index.ts"
     ],
     output: {
-        filename: "[name].[contenthash].js",
+        filename: "[contenthash].js",
         path: path.resolve(__dirname, "dist")
     },
     optimization: {
@@ -86,6 +87,14 @@ module.exports = {
     },
     
     plugins: [
+        new CopyWebpackPlugin({
+            patterns: [
+                {
+                    from: "src/client/assets",
+                    to: "[contenthash].[ext]"
+                }
+            ]
+        }),
         new MiniCSSExtractPlugin({
             filename: "[contenthash].css"
         }),
