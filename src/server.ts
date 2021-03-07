@@ -42,15 +42,16 @@ function joinGame(this:socketio.Socket, data:any):void {
 }
 
 function handleInput(this:socketio.Socket, data:any):void {
+    data = data.state
     let cleanedData:Data.Input = {
         mouseX:data.mouseX || game.players[this.id].screen.x/2,
         mouseY:data.mouseY || game.players[this.id].screen.y/2,
         clicking:data.clicking,
         keys: {
-            w:data.w || false,
-            a:data.a || false,
-            s:data.s || false,
-            d:data.d || false
+            w:data.keys.w || false,
+            a:data.keys.a || false,
+            s:data.keys.s || false,
+            d:data.keys.d || false
         }
     }
     game.handleInput(this, cleanedData);

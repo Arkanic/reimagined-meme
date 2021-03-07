@@ -19,13 +19,15 @@ class Entity {
 
     update():void {
         this.position.add(this.velocity);
+        this.position.x = Math.max(Math.min(this.position.x, constants.map.size), 0);
+        this.position.y = Math.max(Math.min(this.position.y, constants.map.size), 0);
     }
 
     modifyVelocity(delta:Vector2):void {
         let tVelocity = this.velocity;
         tVelocity.add(delta);
-        tVelocity.x = Math.min(Math.max(tVelocity.x, constants.player.maxSpeed), 0);
-        tVelocity.y = Math.min(Math.max(tVelocity.y, constants.player.maxSpeed), 0);
+        tVelocity.x = Math.max(Math.min(tVelocity.x, constants.player.maxSpeed), -constants.player.maxSpeed);
+        tVelocity.y = Math.max(Math.min(tVelocity.y, constants.player.maxSpeed), -constants.player.maxSpeed);
         this.velocity = tVelocity;
     }
 

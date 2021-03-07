@@ -3,6 +3,8 @@ import {throttle} from "throttle-debounce";
 import constants from "../../shared/constants";
 import {handleGameUpdate} from "./handler";
 
+import * as Data from "../../shared/inputObject";
+
 const protocol:string = (window.location.protocol.includes("https")) ? "wss" : "ws";
 const socket:SocketIOClient.Socket = io(`${protocol}://${window.location.host}`, {reconnection:false});
 
@@ -24,6 +26,6 @@ export const play = (username:string, screenWidth:number, screenHeight:number) =
     socket.emit(constants.msg.join, {username, screenWidth, screenHeight});
 }
 
-export const updateInput = throttle(20, state => {
+export const updateInput = throttle(20, (state:Data.Input) => {
     socket.emit(constants.msg.input, {state});
 });

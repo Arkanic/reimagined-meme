@@ -1,3 +1,3 @@
 export function handleGameUpdate(update:any):void {
-    console.log(JSON.stringify(update));
+    document.getElementById("test")!.innerHTML = JSON.stringify(update);
 }

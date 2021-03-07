@@ -25,7 +25,7 @@ class Player extends Entity {
         if(state.keys.a) delta.x -= speed;
         if(state.keys.s) delta.y += speed;
         if(state.keys.d) delta.x += speed;
-        this.modifyVelocity(delta);
+        super.modifyVelocity(delta);
     }
 
     serialize() {
