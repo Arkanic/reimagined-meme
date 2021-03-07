@@ -82,6 +82,13 @@ module.exports = {
                         loader: "pug-html-loader"
                     }
                 ]
+            },
+            {
+                test: /\.(gif|png|jpe?g}svg)$/i,
+                exclude: /node_modules/, // no idea why there would be image files there, but just incase
+                use: [
+                    "file-loader"
+                ]
             }
         ]
     },
@@ -90,8 +97,8 @@ module.exports = {
         new CopyWebpackPlugin({
             patterns: [
                 {
-                    from: "src/client/assets",
-                    to: "[contenthash].[ext]"
+                    from: "src/client/assets/icons/",
+                    to: ""
                 }
             ]
         }),

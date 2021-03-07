@@ -1,5 +1,7 @@
 import "./css/main.scss";
 
+import "./assets/test.png";
+
 import * as networking from "./ts/networking";
 
 console.log("hi");
