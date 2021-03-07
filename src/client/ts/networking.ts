@@ -22,8 +22,8 @@ export const connect = ():void => {
     });
 }
 
-export const play = (username:string, screenWidth:number, screenHeight:number) => {
-    socket.emit(constants.msg.join, {username, screenWidth, screenHeight});
+export const play = (data:Data.Join) => {
+    socket.emit(constants.msg.join, {data});
 }
 
 export const updateInput = throttle(20, (state:Data.Input) => {

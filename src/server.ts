@@ -19,7 +19,6 @@ let io:socketio.Server = new socketio.Server(protoServer);
 const msg = constants.msg;
 
 io.on("connection", function(socket:socketio.Socket) {
-    console.log("A user connected.");
     socket.on(msg.join, joinGame);
     socket.on(msg.input, handleInput);
 
@@ -33,6 +32,8 @@ const server:http.Server = protoServer.listen(8080, function() {
 let game = new Game();
 
 function joinGame(this:socketio.Socket, data:any):void {
+    console.log("A user connected.");
+    data = data.data;
     let cleanedData:Data.Join = {
         username:data.username || `Player#${Math.floor(Math.random()*10000)}`,
         screenWidth:data.screenWidth || 1600,
@@ -58,5 +59,6 @@ function handleInput(this:socketio.Socket, data:any):void {
 }
 
 function disconnect(this:socketio.Socket) {
+    console.log("A user disconnected.");
     game.removePlayer(this);
 }
