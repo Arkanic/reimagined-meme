@@ -1,6 +1,6 @@
 import http from "http";
 import express from "express";
-import socketio, { Socket } from "socket.io";
+import socketio from "socket.io";
 
 import constants from "./shared/constants";
 import Game from "./server/game";
@@ -25,7 +25,7 @@ io.on("connection", function(socket:socketio.Socket) {
     socket.on("disconnect", disconnect);
 });
 
-const server:http.Server = protoServer.listen(8080, function() {
+protoServer.listen(8080, function() {
     console.log(`Server is now listening @ port ${port}`);
 });
 
