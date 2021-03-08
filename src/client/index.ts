@@ -1,6 +1,7 @@
 import "./css/main.scss";
 
 import * as networking from "./ts/networking";
+import * as render from "./ts/render";
 
 Promise.all([
     networking.connect()
@@ -18,4 +19,5 @@ Promise.all([
             d:false
         }
     });
+    render.setup();
 });
