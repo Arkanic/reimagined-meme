@@ -86,9 +86,7 @@ module.exports = {
             {
                 test: /\.(gif|png|jpe?g}svg)$/i,
                 exclude: /node_modules/, // no idea why there would be image files there, but just incase
-                use: [
-                    "file-loader"
-                ]
+                type: "asset/resource",
             }
         ]
     },
