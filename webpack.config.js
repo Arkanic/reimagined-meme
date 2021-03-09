@@ -1,5 +1,6 @@
 const path = require("path");
 
+const webpack = require("webpack");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const MiniCSSExtractPlugin = require("mini-css-extract-plugin");
 const {CleanWebpackPlugin} = require("clean-webpack-plugin");
@@ -22,7 +23,8 @@ module.exports = {
     },
     optimization: {
         splitChunks: {
-            chunks: "all"
+            chunks: "all",
+            maxSize: 1000000
         },
         moduleIds: "deterministic",
         minimizer: [
