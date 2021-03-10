@@ -1,4 +1,4 @@
-import {getCurrentState} from "./state";
+import {getCurrentState, getPing} from "./state";
 
 import bob from "../assets/test.png";
 
@@ -6,25 +6,33 @@ let canvas:HTMLCanvasElement = <HTMLCanvasElement>document.getElementById("game"
 let ctx = canvas.getContext("2d")!;
 
 export function setup():Promise<void> { // promise is just to keep it as a setup method
+    function fullWidthResize(element:HTMLCanvasElement):void {
+        element.width = window.innerWidth;
+        element.height = window.innerHeight;
+    }
+    fullWidthResize(canvas); // execute on setup
     window.addEventListener("resize", () => {
-        canvas.width = window.innerWidth,
-        canvas.height = window.innerHeight
+        fullWidthResize(canvas);
     }, false);
+
+
+    // settings //
+    //(nothing)
+
 
     return new Promise(resolve => {
         resolve();
     });
-
-    // settings //
-    ctx.font = "16px sans-serif";
 }
 
 function render():void {
     ctx.fillStyle = "white";
     ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
 
+    // ping
     ctx.fillStyle = "black";
-    ctx.fillText(JSON.stringify(getCurrentState()), 10, 10);
+    ctx.font = "16px sans-serif";
+    ctx.fillText(getPing());
 }
 
 
