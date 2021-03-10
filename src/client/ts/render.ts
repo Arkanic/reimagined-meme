@@ -3,9 +3,9 @@ import {getCurrentState} from "./state";
 import bob from "../assets/test.png";
 
 let canvas:HTMLCanvasElement = <HTMLCanvasElement>document.getElementById("game")!;
+let ctx = canvas.getContext("2d")!;
 
 export function setup():Promise<void> { // promise is just to keep it as a setup method
-
     window.addEventListener("resize", () => {
         canvas.width = window.innerWidth,
         canvas.height = window.innerHeight
@@ -14,11 +14,15 @@ export function setup():Promise<void> { // promise is just to keep it as a setup
     return new Promise(resolve => {
         resolve();
     });
+
+    // settings //
+    ctx.font = "16px sans-serif";
 }
 
 function render():void {
-    console.log(JSON.stringify(getCurrentState()));
-    console.log("running");
+    ctx.fillStyle = "red";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.fillText(JSON.stringify(getCurrentState()), 10, 10);
 }
 
 
