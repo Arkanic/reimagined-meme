@@ -4,8 +4,10 @@ import * as networking from "./ts/networking";
 import * as render from "./ts/render";
 
 Promise.all([
-    networking.connect()
+    networking.connect(),
+    render.setup()
 ]).then(() => {
+    render.startRendering();
     networking.play({username:"", screenWidth:window.innerWidth, screenHeight:window.innerHeight});
     networking.updateInput({
         mouseX:0,
@@ -19,5 +21,4 @@ Promise.all([
             d:false
         }
     });
-    render.setup();
 });

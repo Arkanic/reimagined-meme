@@ -24,7 +24,6 @@ module.exports = {
     optimization: {
         splitChunks: {
             chunks: "all",
-            maxSize: 1000000
         },
         moduleIds: "deterministic",
         minimizer: [
