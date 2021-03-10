@@ -7,7 +7,7 @@ Promise.all([
     networking.connect(),
     render.setup()
 ]).then(() => {
-    render.startRendering();
+    render.startRendering()
     networking.play({username:"", screenWidth:window.innerWidth, screenHeight:window.innerHeight});
     networking.updateInput({
         mouseX:0,

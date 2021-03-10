@@ -5,7 +5,7 @@ let ping:number = 0;
 
 export function newGameUpdateData(update:any) {
     currentUpdate = update;
-    ping = update.time - Date.now();
+    ping = Date.now() - update.time;
 }
 export function getCurrentState():any {
     return currentUpdate;

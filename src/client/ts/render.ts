@@ -1,4 +1,5 @@
 import {getCurrentState, getPing} from "./state";
+import * as background from "./render/background";
 
 import bob from "../assets/test.png";
 
@@ -36,12 +37,17 @@ function render():void {
 }
 
 
-let renderLoop = setInterval(() => {}, 1000/60); // stopped rendering will contain a main menu render at some point
+let renderLoop = setInterval(() => {
+    background.render(ctx);
+}, 1000/60);
+
 export function startRendering() {
     clearInterval(renderLoop);
     renderLoop = setInterval(render, 1000/60);
 }
 export function stopRendering() {
     clearInterval(renderLoop);
-    renderLoop = setInterval(() => {}, 1000/60);
+    renderLoop = setInterval(() => {
+        background.render(ctx);
+    }, 1000/60);
 }
