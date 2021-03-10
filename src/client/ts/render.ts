@@ -18,7 +18,6 @@ export function setup():Promise<void> { // promise is just to keep it as a setup
 
 function render():void {
     console.log(JSON.stringify(getCurrentState()));
-    devText.text = JSON.stringify(getCurrentState());
     console.log("running");
 }
 
