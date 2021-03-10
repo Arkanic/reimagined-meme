@@ -20,8 +20,10 @@ export function setup():Promise<void> { // promise is just to keep it as a setup
 }
 
 function render():void {
-    ctx.fillStyle = "red";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = "white";
+    ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
+
+    ctx.fillStyle = "black";
     ctx.fillText(JSON.stringify(getCurrentState()), 10, 10);
 }
 
