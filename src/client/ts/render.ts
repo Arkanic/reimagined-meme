@@ -32,7 +32,7 @@ function render():void {
     // ping
     ctx.fillStyle = "black";
     ctx.font = "16px sans-serif";
-    ctx.fillText(getPing());
+    ctx.fillText(`${getPing()}`, 10, 30);
 }
 
 
