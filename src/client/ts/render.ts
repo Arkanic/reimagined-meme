@@ -1,5 +1,6 @@
 import {getCurrentState, getPing} from "./state";
 import * as background from "./render/background";
+import * as mouse from "./input/mouse";
 
 import bob from "../assets/test.png";
 
@@ -34,6 +35,7 @@ function render():void {
     ctx.fillStyle = "black";
     ctx.font = "16px sans-serif";
     ctx.fillText(`${getPing()}`, 10, 30);
+    ctx.fillText(`${mouse.getMouseState().clicked}`, 10, 60);
 }
 
 
