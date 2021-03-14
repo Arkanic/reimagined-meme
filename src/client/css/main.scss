@@ -7,8 +7,46 @@
 html, body {
     width: 100%;
     height: 100%;
+    overflow: hidden;
+    overscroll-behavior: none;
+    background-color: black;
+}
+
+.hidden {
+    display: none !important;
 }
 
 canvas {
     display: block;
+}
+
+button {
+    font-size: 18px;
+    outline: none;
+    border: none;
+    color: black;
+    background-color: transparent;
+    padding: 5px 20px;
+    border-radius: 3px;
+    transition: background-color 0.2s ease;
+
+    &:hover {
+        background: rgb(230, 230, 230);
+    }
+
+    &:focus {
+        outline: none; // prevent default behavior
+    }
+}
+
+.chat {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    width: 25%;
+    height: 25%;
+
+    background-color: rgba(100, 100, 100, 0.5);
+    padding: 10px;
+    border-radius: 5px;
 }

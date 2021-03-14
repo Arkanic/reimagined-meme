@@ -1,6 +1,8 @@
-import {getCurrentState, getPing} from "./state";
+import * as state from "./state";
 import * as background from "./render/background";
+import * as game from "./render/game";
 import * as mouse from "./input/mouse";
+import * as keyboard from "./input/keyboard";
 
 import bob from "../assets/test.png";
 
@@ -27,25 +29,15 @@ export function setup():Promise<void> { // promise is just to keep it as a setup
     });
 }
 
-function render():void {
-    ctx.fillStyle = "white";
-    ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
-
-    // ping
-    ctx.fillStyle = "black";
-    ctx.font = "16px sans-serif";
-    ctx.fillText(`${getPing()}`, 10, 30);
-    ctx.fillText(`${mouse.getMouseState().clicked}`, 10, 60);
-}
-
-
 let renderLoop = setInterval(() => {
     background.render(ctx);
 }, 1000/60);
 
 export function startRendering() {
     clearInterval(renderLoop);
-    renderLoop = setInterval(render, 1000/60);
+    renderLoop = setInterval(() => {
+        game.render(ctx);
+    }, 1000/60);
 }
 export function stopRendering() {
     clearInterval(renderLoop);

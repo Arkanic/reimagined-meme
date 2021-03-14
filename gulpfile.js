@@ -24,16 +24,16 @@ const compile = cb => {
         .pipe(gulpSourcemaps.init())
         .pipe(tsProject())
         .pipe(gulpSourcemaps.write("."))
-        .pipe(gulp.dest("build"))
-        .pipe(gulpDebug({title: "Serverside TS"}));
+        .pipe(gulpDebug({title: "Serverside TS"}))
+        .pipe(gulp.dest("build"));
     cb();
 }
 
 const dist = cb => {
     gulp.src("src/client/index.ts")
         .pipe(webpackStream(require("./webpack.config"), webpack))
-        .pipe(gulp.dest("dist"))
-        .pipe(gulpDebug({title: "Webpack"}));
+        .pipe(gulpDebug({title: "Webpack"}))
+        .pipe(gulp.dest("dist"));
     cb();
 }
 

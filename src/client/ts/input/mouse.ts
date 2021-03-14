@@ -1,41 +1,42 @@
-class MouseState {
+interface MouseState {
     x:number;
     y:number;
     clicked:boolean;
-
-    constructor() {
-        this.x = window.innerWidth/2;
-        this.y = window.innerHeight/2;
-        this.clicked = false;
-    }
-
-    handleMouseMove(e:MouseEvent):void {
-        mouseState.x = e.offsetX;
-        mouseState.y = e.offsetY;
-    }
-
-    handleMouseDown(e:MouseEvent):void {
-        mouseState.clicked = true;
-    }
-
-    handleMouseUp(e:MouseEvent):void {
-        mouseState.clicked = false;
-    }
 }
-let mouseState:MouseState = new MouseState();
+
+let mouse:MouseState;
+
+function handleMouseMove(e:MouseEvent):void {
+    mouse.x = e.offsetX;
+    mouse.y = e.offsetY;
+}
+
+function handleMouseDown(e:MouseEvent):void {
+    mouse.clicked = true;
+}
+
+function handleMouseUp(e:MouseEvent):void {
+    mouse.clicked = false;
+}
 
 export function getMouseState():MouseState {
-    return mouseState;
+    return mouse;
 }
 
 export function startMouseInputHandling():void {
-    window.addEventListener("mousemove", mouseState.handleMouseMove);
-    window.addEventListener("mousedown", mouseState.handleMouseDown);
-    window.addEventListener("mouseup", mouseState.handleMouseUp);
+    mouse = {
+        x:window.innerWidth/2,
+        y:window.innerHeight/2,
+        clicked:false
+    }
+
+    window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("mousedown", handleMouseDown);
+    window.addEventListener("mouseup", handleMouseUp);
 }
 
 export function stopMouseInputHandling():void {
-    window.removeEventListener("mousemove", mouseState.handleMouseMove);
-    window.removeEventListener("mousedown", mouseState.handleMouseDown);
-    window.removeEventListener("mouseup", mouseState.handleMouseUp);
+    window.removeEventListener("mousemove", handleMouseMove);
+    window.removeEventListener("mousedown", handleMouseDown);
+    window.removeEventListener("mouseup", handleMouseUp);
 }

@@ -1,8 +1,8 @@
 const constants:{[unit:string]:any} = Object.freeze({
     player: {
         defaultHealth: 100,
-        maxSpeed: 10,
-        speed: 5
+        maxSpeed: 50,
+        speed: 10
     },
     map: {
         size: 2000
