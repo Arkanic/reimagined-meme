@@ -19,6 +19,13 @@ export const connect = ():void => {
     connected.then(() => {
         console.log("Started handlers");
         socket.on(constants.msg.update, handleGameUpdate);
+        socket.on("disconnect", () => {
+            console.log("disconnected");
+            document.getElementById("disconnected")!.classList.remove("hidden");
+            document.getElementById("reconnect-button")!.addEventListener("click", (e) => {
+                window.location.reload();
+            });
+        })
     });
 }
 
