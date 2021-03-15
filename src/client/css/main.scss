@@ -68,7 +68,13 @@ button {
     width: 25%;
     height: 25%;
 
-    background-color: rgba(100, 100, 100, 0.5);
+    overflow: scroll;
+
+    background-color: rgba(100, 100, 100, 0.8);
     padding: 10px;
     border-radius: 5px;
+
+    .chat-message {
+        padding: 5px;
+    }
 }

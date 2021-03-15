@@ -3,6 +3,7 @@ import "./css/main.scss";
 import * as networking from "./ts/networking";
 import * as render from "./ts/render";
 import * as input from "./ts/input";
+import * as chatbox from "./ts/ui/chatbox";
 
 Promise.all([
     networking.connect(),
@@ -23,4 +24,7 @@ Promise.all([
             d:false
         }
     });
+
+    chatbox.createMessage("hi");
+    chatbox.createMessage("newline???");
 });
