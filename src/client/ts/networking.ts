@@ -25,7 +25,7 @@ export const connect = ():void => {
             document.getElementById("reconnect-button")!.addEventListener("click", (e) => {
                 window.location.reload();
             });
-        })
+        });
     });
 }
 
