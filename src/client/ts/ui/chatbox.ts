@@ -1,5 +1,8 @@
 import {nanoid} from "nanoid";
 
+let chatbox:HTMLElement = document.getElementById("chat")!;
+let anchor:HTMLElement = document.getElementById("chat-anchor")!;
+
 export function createMessage(content:string):string {
     let container:HTMLElement = document.createElement("div");
     container.classList.add("chat-message");
@@ -9,7 +12,7 @@ export function createMessage(content:string):string {
     text.innerHTML = content; // html supported
 
     container.appendChild(text);
-    document.getElementById("chat")!.appendChild(container);
+    chatbox.insertBefore(container, anchor);
 
     return container.id;
 }

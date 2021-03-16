@@ -68,7 +68,10 @@ button {
     width: 25%;
     height: 25%;
 
-    overflow: scroll;
+    overflow-y: scroll;
+    overflow-x: auto;
+    overflow-anchor: none;
+    word-wrap: break-word;
 
     background-color: rgba(100, 100, 100, 0.8);
     padding: 10px;
@@ -76,5 +79,10 @@ button {
 
     .chat-message {
         padding: 5px;
+    }
+
+    .chat-anchor {
+        overflow-anchor: auto;
+        height: 20px; // anchor nodes require non-zero area
     }
 }
