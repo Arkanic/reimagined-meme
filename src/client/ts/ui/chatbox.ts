@@ -23,3 +23,7 @@ export function editMessage(id:string, content:string):boolean {
     container.firstElementChild!.innerHTML = content;
     return true;
 }
+
+export function deleteMessage(id:string):void {
+    document.getElementById(id)?.remove();
+}
