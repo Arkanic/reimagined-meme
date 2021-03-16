@@ -11,6 +11,7 @@ const constants:{[unit:string]:any} = Object.freeze({
         join: "joingame",
         input: "inputsend",
         update: "gameupdate",
+        chatmessage: "chatmessage",
         serverclosing: "servershutdown"
     }
 });

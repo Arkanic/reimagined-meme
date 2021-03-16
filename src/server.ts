@@ -22,6 +22,7 @@ const msg = constants.msg;
 io.on("connection", function(socket:socketio.Socket) {
     socket.on(msg.join, joinGame);
     socket.on(msg.input, handleInput);
+    socket.on(msg.chatmessage, chatMessage);
 
     socket.on("disconnect", disconnect);
 
@@ -62,6 +63,12 @@ function handleInput(this:socketio.Socket, data:any):void {
         }
     }
     game.handleInput(this, cleanedData);
+}
+
+function chatMessage(this:socketio.Socket, data:any):void {
+    data = data.data;
+    if(!data.message) return;
+    game.chatMessage(this, data.message);
 }
 
 function disconnect(this:socketio.Socket) {

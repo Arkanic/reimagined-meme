@@ -37,6 +37,10 @@ class Game {
         this.players[socket.id].translateInput(state);
     }
 
+    chatMessage(socket:io.Socket, message:string):void {
+        socket.emit(constants.msg.chatmessage, {message});
+    }
+
     update():void {
         Object.keys(this.sockets).forEach(id => {
             const socket = this.sockets[id];
