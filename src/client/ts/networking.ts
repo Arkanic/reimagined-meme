@@ -2,29 +2,35 @@ import io from "socket.io-client";
 import {throttle} from "throttle-debounce";
 import constants from "../../shared/constants";
 import {handleGameUpdate} from "./handler";
+import Logger from "./logger";
 
 import * as Data from "../../shared/inputObject";
 
+let logger:Logger = new Logger("networking", "blue");
+
 const protocol:string = (window.location.protocol.includes("https")) ? "wss" : "ws";
 const socket:SocketIOClient.Socket = io(`${protocol}://${window.location.host}`, {reconnection:false});
+let disconnectMessage:string = "Unknown. Try checking your network. If not, the server may have crashed.";
 
 const connected:Promise<void> = new Promise((resolve) => {
     socket.on("connect", () => {
-        console.log(`Connected, using ${protocol}`);
+        logger.log(`Connected, using ${protocol}`);
         resolve();
     });
 });
 
 export const connect = ():void => {
     connected.then(() => {
-        console.log("Started handlers");
+        logger.log("Started handlers");
         socket.on(constants.msg.update, handleGameUpdate);
         socket.on(constants.msg.serverclosing, function (data:any) {
+            disconnectMessage = data.message
             document.getElementById("disconnect-message")!.innerHTML = data.message;
         })
 
         socket.on("disconnect", () => {
-            console.log("disconnected");
+            logger.error("disconnected");
+            logger.error(`(${disconnectMessage})`);
             document.getElementById("disconnected")!.classList.remove("hidden");
             document.getElementById("reconnect-button")!.addEventListener("click", (e) => {
                 window.location.reload();

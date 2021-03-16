@@ -10,6 +10,7 @@ console.log("\n\n%cStop!%c\nYOUR ACCOUNT DATA COULD BE AT RISK.\n%cIf someone to
 
 let logger = new Logger("main", "red");
 logger.log("testing 123");
+logger.error("fake error");
 
 Promise.all([
     networking.connect(),
