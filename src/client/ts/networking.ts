@@ -1,7 +1,7 @@
 import io from "socket.io-client";
 import {throttle} from "throttle-debounce";
 import constants from "../../shared/constants";
-import {handleGameUpdate} from "./handler";
+import {handleGameUpdate, handleChatMessage} from "./handler";
 import Logger from "./logger";
 
 import * as Data from "../../shared/inputObject";
@@ -23,10 +23,11 @@ export const connect = ():void => {
     connected.then(() => {
         logger.log("Started handlers");
         socket.on(constants.msg.update, handleGameUpdate);
+        socket.on(constants.msg.chatmessage, handleChatMessage);
         socket.on(constants.msg.serverclosing, function (data:any) {
             disconnectMessage = data.message
             document.getElementById("disconnect-message")!.innerHTML = data.message;
-        })
+        });
 
         socket.on("disconnect", () => {
             logger.error("disconnected");
@@ -45,4 +46,8 @@ export const play = (data:Data.Join) => {
 
 export const updateInput = throttle(20, (state:Data.Input) => {
     socket.emit(constants.msg.input, {state});
+});
+
+export const sendMessage = throttle(20, (data:Data.Message) => {
+    socket.emit(constants.msg.chatmessage, {data});
 });

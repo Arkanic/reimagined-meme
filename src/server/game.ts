@@ -1,4 +1,5 @@
 import io from "socket.io";
+import striptags from "striptags";
 import Player from "./player";
 import Vector2 from "./types/vector2";
 import * as Data from "../shared/inputObject";
@@ -24,7 +25,7 @@ class Game {
 
         const position:Vector2 = new Vector2(Math.floor(constants.map.size * (0.25 + Math.random() * 0.5)), Math.floor(constants.map.size * (0.25 + Math.random() * 0.5)));
         const screen:Vector2 = new Vector2(data.screenWidth, data.screenHeight);
-        this.players[socket.id] = new Player(socket.id, position, screen, data.username);
+        this.players[socket.id] = new Player(socket.id, position, screen, striptags(data.username));
     }
 
     removePlayer(socket:io.Socket):void {
@@ -37,8 +38,11 @@ class Game {
         this.players[socket.id].translateInput(state);
     }
 
-    chatMessage(socket:io.Socket, message:string):void {
-        socket.emit(constants.msg.chatmessage, {message});
+    chatMessage(sender:io.Socket, message:string):void {
+        Object.keys(this.sockets).forEach(id => {
+            const socket = this.sockets[id];
+            socket.emit(constants.msg.chatmessage, {message:striptags(message), sender:sender.id});
+        });
     }
 
     update():void {
@@ -54,7 +58,7 @@ class Game {
 
     createUpdate(player:Player):Serialized.World {
         const nearbyPlayers:Array<Player> = Object.values<Player>(this.players).filter(
-            p => p !== player && p.distanceTo(player) <= constants.map.size / 2
+            p => p !== player && p.distanceTo(player) <= constants.map.size
         );
 
         return {

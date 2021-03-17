@@ -31,4 +31,7 @@ Promise.all([
             d:false
         }
     });
+    setTimeout(() => {
+        networking.sendMessage({message:"Hi there 1234 lmao"});
+    }, 1000);
 });

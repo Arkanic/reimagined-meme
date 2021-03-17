@@ -16,3 +16,7 @@ export interface Join {
     screenWidth:number;
     screenHeight:number;
 }
+
+export interface Message {
+    message:string;
+}
