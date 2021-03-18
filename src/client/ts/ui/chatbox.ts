@@ -5,6 +5,7 @@ let chatbox:HTMLElement = document.getElementById("chat-messages")!;
 let inputbox:HTMLInputElement = <HTMLInputElement>document.getElementById("chat-text-input")!;
 
 inputbox.addEventListener("keydown", e => {
+    if(!(e.keyCode == 13)) return;
     networking.sendMessage({message:inputbox.value});
     inputbox.value = "";
 });
