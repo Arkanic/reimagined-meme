@@ -41,7 +41,7 @@ class Game {
     chatMessage(sender:io.Socket, message:string):void {
         Object.keys(this.sockets).forEach(id => {
             const socket = this.sockets[id];
-            socket.emit(constants.msg.chatmessage, {message:striptags(message), sender:sender.id});
+            socket.emit(constants.msg.chatmessage, {message:striptags(message).slice(0, 300), sender:sender.id});
         });
     }
 

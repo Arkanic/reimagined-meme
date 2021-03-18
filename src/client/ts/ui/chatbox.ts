@@ -1,7 +1,19 @@
 import {nanoid} from "nanoid";
+import * as networking from "../networking";
 
-let chatbox:HTMLElement = document.getElementById("chat")!;
-let anchor:HTMLElement = document.getElementById("chat-anchor")!;
+let chatbox:HTMLElement = document.getElementById("chat-messages")!;
+let inputbox:HTMLInputElement = <HTMLInputElement>document.getElementById("chat-text-input")!;
+
+inputbox.addEventListener("keydown", e => {
+    networking.sendMessage({message:inputbox.value});
+    inputbox.value = "";
+});
+
+function scrollToBottom() {
+    chatbox.scrollTop = chatbox.scrollHeight;
+}
+
+setInterval(scrollToBottom, 500);
 
 export function createMessage(content:string):string {
     let container:HTMLElement = document.createElement("div");
@@ -12,13 +24,15 @@ export function createMessage(content:string):string {
     text.innerHTML = content; // html supported
 
     container.appendChild(text);
-    chatbox.insertBefore(container, anchor);
+    chatbox.appendChild(container);
+
+    scrollToBottom();
 
     return container.id;
 }
 
 export function editMessage(id:string, content:string):boolean {
-    let temp:HTMLElement | null = document.getElementById(id);
+    let temp:HTMLElement|null = document.getElementById(id);
     let container:HTMLElement;
     if(!temp) return false;
     else container = temp!;
@@ -29,4 +43,6 @@ export function editMessage(id:string, content:string):boolean {
 
 export function deleteMessage(id:string):void {
     document.getElementById(id)?.remove();
+    
+    scrollToBottom();
 }

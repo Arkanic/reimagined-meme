@@ -5,8 +5,11 @@ html
         meta(charset="utf-8")
     body
         canvas#game
+        
         div#chat.chat
-            div#chat-anchor.chat-anchor
+            div#chat-messages.chat-messages
+            div#chat-input.chat-input
+                input(type="text" maxlength=300)#chat-text-input.chat-text-input
         
         div#disconnected.hidden.disconnected
             div
