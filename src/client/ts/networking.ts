@@ -4,7 +4,7 @@ import constants from "../../shared/constants";
 import {handleGameUpdate, handleChatMessage} from "./handler";
 import Logger from "./logger";
 
-import * as Data from "../../shared/inputObject";
+import * as Data from "../../shared/types/inputObject";
 
 let logger:Logger = new Logger("networking", "blue");
 

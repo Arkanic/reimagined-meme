@@ -1,5 +1,5 @@
 import Vector2 from "./types/vector2";
-import * as Serialized from "./types/serializedData";
+import * as Serialized from "../shared/types/serializedData";
 import constants from "../shared/constants";
 
 class Entity {

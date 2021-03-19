@@ -16,8 +16,7 @@ const playButton:HTMLButtonElement = <HTMLButtonElement>document.getElementById(
 const usernameInput:HTMLInputElement = <HTMLInputElement>document.getElementById("username-input")!;
 
 Promise.all([
-    networking.connect(),
-    render.setup()
+    networking.connect()
 ]).then(() => {
     playMenu.classList.remove("hidden");
     usernameInput.focus();

@@ -1,4 +1,5 @@
 import {newGameUpdateData, getCurrentState} from "./state";
+
 import * as chatbox from "./ui/chatbox";
 
 export function handleGameUpdate(update:any):void {

@@ -6,7 +6,7 @@ import onDeath from "death";
 import constants from "./shared/constants";
 import Game from "./server/game";
 
-import * as Data from "./shared/inputObject";
+import * as Data from "./shared/types/inputObject";
 
 const port = process.env.PORT || 8080; // port is the specified port or port 8080.
 

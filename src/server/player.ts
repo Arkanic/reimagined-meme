@@ -2,7 +2,7 @@ import constants from "../shared/constants";
 
 import Entity from "./entity";
 import Vector2 from "./types/vector2";
-import * as Data from "../shared/inputObject";
+import * as Data from "../shared/types/inputObject";
 
 class Player extends Entity {
     username:string;

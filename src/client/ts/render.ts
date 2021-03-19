@@ -1,3 +1,5 @@
+import {debounce} from "throttle-debounce";
+
 import * as state from "./state";
 import * as background from "./render/background";
 import * as game from "./render/game";
@@ -9,25 +11,17 @@ import bob from "../assets/test.png";
 let canvas:HTMLCanvasElement = <HTMLCanvasElement>document.getElementById("game")!;
 let ctx = canvas.getContext("2d")!;
 
-export function setup():Promise<void> { // promise is just to keep it as a setup method
-    function fullWidthResize(element:HTMLCanvasElement):void {
-        element.width = window.innerWidth;
-        element.height = window.innerHeight;
-    }
-    fullWidthResize(canvas); // execute on setup
-    window.addEventListener("resize", () => {
-        fullWidthResize(canvas);
-    }, false);
+ctx.font = "10px Arial";
+ctx.textAlign = "center";
 
-
-    // settings //
-    //(nothing)
-
-
-    return new Promise(resolve => {
-        resolve();
-    });
+function setDimensions():void {
+    const scaleRatio = Math.max(1, 800 / window.innerWidth);
+    canvas.width = scaleRatio * window.innerWidth;
+    canvas.height = scaleRatio * window.innerHeight;
 }
+setDimensions();
+
+window.addEventListener("resize", debounce(40, setDimensions));
 
 let renderLoop = setInterval(() => {
     background.render(ctx);

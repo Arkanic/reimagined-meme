@@ -2,8 +2,8 @@ import io from "socket.io";
 import striptags from "striptags";
 import Player from "./player";
 import Vector2 from "./types/vector2";
-import * as Data from "../shared/inputObject";
-import * as Serialized from "./types/serializedData";
+import * as Data from "../shared/types/inputObject";
+import * as Serialized from "../shared/types/serializedData";
 
 import constants from "../shared/constants";
 
