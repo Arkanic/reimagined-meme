@@ -3,6 +3,7 @@ import "./css/main.scss";
 import * as networking from "./ts/networking";
 import * as render from "./ts/render";
 import * as input from "./ts/input";
+import * as assets from "./ts/assets";
 import Logger from "./ts/logger";
 
 console.log("%cREIMAGINED_MEME", "color:blue; font-size:32px; font-weight:bold;", "\nBy Arkanic"); // hehe
@@ -18,6 +19,8 @@ const usernameInput:HTMLInputElement = <HTMLInputElement>document.getElementById
 Promise.all([
     networking.connect()
 ]).then(() => {
+    assets.startAssetLoading();
+
     playMenu.classList.remove("hidden");
     usernameInput.focus();
     

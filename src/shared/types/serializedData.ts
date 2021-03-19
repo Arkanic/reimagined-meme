@@ -22,3 +22,8 @@ export interface World {
     me:Player;
     others:Array<Player>;
 }
+
+export interface ChatMessage {
+    message:string;
+    sender:string;
+}

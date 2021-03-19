@@ -1,13 +1,15 @@
+import * as serialized from "../../shared/types/serializedData";
+
 /* may contain some sort of interpolation in the future */
 
-let currentUpdate:any;
+let currentUpdate:serialized.World;
 let ping:number = 0;
 
-export function newGameUpdateData(update:any) {
+export function newGameUpdateData(update:serialized.World) {
     currentUpdate = update;
     ping = Date.now() - update.time;
 }
-export function getCurrentState():any {
+export function getCurrentState():serialized.World {
     return currentUpdate;
 }
 

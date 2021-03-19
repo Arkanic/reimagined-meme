@@ -1,7 +1,7 @@
 import {debounce} from "throttle-debounce";
 
 import * as state from "./state";
-import * as background from "./render/background";
+import * as menu from "./render/menu";
 import * as game from "./render/game";
 import * as mouse from "./input/mouse";
 import * as keyboard from "./input/keyboard";
@@ -24,18 +24,18 @@ setDimensions();
 window.addEventListener("resize", debounce(40, setDimensions));
 
 let renderLoop = setInterval(() => {
-    background.render(ctx);
+    menu.render(ctx);
 }, 1000/60);
 
 export function startRendering() {
     clearInterval(renderLoop);
     renderLoop = setInterval(() => {
-        game.render(ctx);
+        game.render(ctx, canvas);
     }, 1000/60);
 }
 export function stopRendering() {
     clearInterval(renderLoop);
     renderLoop = setInterval(() => {
-        background.render(ctx);
+        menu.render(ctx);
     }, 1000/60);
 }

@@ -26,6 +26,8 @@
     "@types/socket.io-client": "^1.4.35",
     "@types/striptags": "^3.1.1",
     "@types/throttle-debounce": "^2.1.0",
+    "@types/webpack": "^4.41.26",
+    "@types/webpack-env": "^1.16.0",
     "clean-webpack-plugin": "^3.0.0",
     "copy-webpack-plugin": "^8.0.0",
     "css-loader": "^5.0.2",
