@@ -6,4 +6,3 @@ export function render(ctx:CanvasRenderingContext2D, canvas:HTMLCanvasElement):v
     ctx.fillStyle = "white";
     ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
 }
-

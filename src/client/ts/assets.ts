@@ -2,7 +2,10 @@ import Logger from "../ts/logger";
 
 let logger:Logger = new Logger("asset loader", "green");
 
+let assetNames:Array<AssetData> = handleRequireContext(require.context("../assets/", false, /\.(png|jpe?g|svg|gif|webp)$/));
 let assets:{[unit:string]:HTMLImageElement} = {};
+
+const downloadPromise:Promise<Array<void>> = Promise.all(assetNames.map(downloadAsset));
 
 interface AssetData {
     name:string;
@@ -28,7 +31,9 @@ function downloadAsset(meta:AssetData):Promise<void> {
     return new Promise(resolve => {
         const asset:HTMLImageElement = new Image();
         asset.onload = () => {
-            logger.log(`Successfully downloaded "${meta.url}"`);
+            let slashSplit:Array<string> = meta.url.split("/");
+            let hash:string = slashSplit[slashSplit.length-1].split(".")[0];
+            logger.log(`Successfully downloaded ${hash}`);
             assets[meta.name] = asset;
             resolve();
         }
@@ -36,9 +41,5 @@ function downloadAsset(meta:AssetData):Promise<void> {
     });
 }
 
-export function startAssetLoading():void {
-    let temp = handleRequireContext(require.context("../assets/", false, /\.(png|jpe?g|svg|gif|webp)$/));
-    for(let i in temp) {
-        
-    }
-}
+export const downloadAssets = () => downloadPromise;
+export const getAsset = (assetName:string) => assets[assetName];
