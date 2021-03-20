@@ -10,7 +10,8 @@ class Constants {
     }
     msg: {
         join:string;
-        input:string;
+        mouseinput:string;
+        keyboardinput:string;
         update:string;
         chatmessage:string;
         serverclosing:string;
@@ -28,7 +29,8 @@ class Constants {
         }
         this.msg = {
             join: "joingame",
-            input: "inputsend",
+            mouseinput: "mouseinputsend",
+            keyboardinput: "keyboardinputsend",
             update: "gameupdate",
             chatmessage: "chatmessage",
             serverclosing: "servershutdown"

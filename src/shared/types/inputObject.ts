@@ -1,14 +1,14 @@
-export interface Input {
+export interface MouseInput {
     mouseX:number;
     mouseY:number;
     clicking:boolean;
+}
 
-    keys: {
-        w:boolean;
-        a:boolean;
-        s:boolean;
-        d:boolean;
-    }
+export interface KeyboardInput {
+    w:boolean;
+    a:boolean;
+    s:boolean;
+    d:boolean;
 }
 
 export interface Join {

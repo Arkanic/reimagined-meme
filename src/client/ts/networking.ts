@@ -44,8 +44,12 @@ export const play = (data:Data.Join) => {
     socket.emit(constants.msg.join, {data});
 }
 
-export const updateInput = throttle(20, (state:Data.Input) => {
-    socket.emit(constants.msg.input, {state});
+export const updateMouseInput = throttle(20, (state:Data.MouseInput) => {
+    socket.emit(constants.msg.mouseinput, {state});
+});
+
+export const updateKeyboardInput = throttle(20, (state:Data.KeyboardInput) => {
+    socket.emit(constants.msg.keyboardinput, {state});
 });
 
 export const sendMessage = throttle(20, (data:Data.Message) => {

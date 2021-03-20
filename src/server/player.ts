@@ -18,13 +18,17 @@ class Player extends Entity {
         this.health = constants.player.defaultHealth;
     }
 
-    translateInput(state:Data.Input):void {
+    translateMouseInput(state:Data.MouseInput):void {
+        
+    }
+
+    translateKeyboardInput(state:Data.KeyboardInput):void {
         let delta = new Vector2(0, 0);
         let speed = constants.player.speed;
-        if(state.keys.w) delta.y -= speed;
-        if(state.keys.a) delta.x -= speed;
-        if(state.keys.s) delta.y += speed;
-        if(state.keys.d) delta.x += speed;
+        if(state.w) delta.y -= speed;
+        if(state.a) delta.x -= speed;
+        if(state.s) delta.y += speed;
+        if(state.d) delta.x += speed;
         super.modifyVelocity(delta);
     }
 

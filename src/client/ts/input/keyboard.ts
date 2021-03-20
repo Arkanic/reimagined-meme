@@ -1,3 +1,6 @@
+import * as networking from "../networking";
+import * as Data from "../../../shared/types/inputObject";
+
 let keyboardKeys:{[unit:string]:number} = {
     up:87,
     left:65,
@@ -13,6 +16,8 @@ function checkChangeKey(e:KeyboardEvent, changeTo:boolean):void {
             return; // break out of loop
         }
     }
+
+    networking.updateKeyboardInput(keys as unknown as Data.KeyboardInput);
 }
 
 function handleKeyDown(e:KeyboardEvent):void {

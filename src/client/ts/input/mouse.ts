@@ -1,33 +1,36 @@
-interface MouseState {
-    x:number;
-    y:number;
-    clicked:boolean;
-}
+import * as networking from "../networking";
+import * as Data from "../../../shared/types/inputObject";
 
-let mouse:MouseState;
+let mouse:Data.MouseInput;
 
 function handleMouseMove(e:MouseEvent):void {
-    mouse.x = e.offsetX;
-    mouse.y = e.offsetY;
+    mouse.mouseX = e.offsetX;
+    mouse.mouseY = e.offsetY;
+
+    networking.updateMouseInput(mouse);
 }
 
 function handleMouseDown(e:MouseEvent):void {
-    mouse.clicked = true;
+    mouse.clicking = true;
+
+    networking.updateMouseInput(mouse);
 }
 
 function handleMouseUp(e:MouseEvent):void {
-    mouse.clicked = false;
+    mouse.clicking = false;
+
+    networking.updateMouseInput(mouse);
 }
 
-export function getMouseState():MouseState {
+export function getMouseState():Data.MouseInput {
     return mouse;
 }
 
 export function startMouseInputHandling():void {
     mouse = {
-        x:window.innerWidth/2,
-        y:window.innerHeight/2,
-        clicked:false
+        mouseX:window.innerWidth/2,
+        mouseY:window.innerHeight/2,
+        clicking:false
     }
 
     window.addEventListener("mousemove", handleMouseMove);

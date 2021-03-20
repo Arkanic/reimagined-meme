@@ -21,7 +21,8 @@ const msg = constants.msg;
 
 io.on("connection", function(socket:socketio.Socket) {
     socket.on(msg.join, joinGame);
-    socket.on(msg.input, handleInput);
+    socket.on(msg.mouseinput, handleMouseInput);
+    socket.on(msg.keyboardinput, handleKeyboardInput);
     socket.on(msg.chatmessage, chatMessage);
 
     socket.on("disconnect", disconnect);
@@ -49,20 +50,25 @@ function joinGame(this:socketio.Socket, data:any):void {
     game.addPlayer(this, cleanedData);
 }
 
-function handleInput(this:socketio.Socket, data:any):void {
-    data = data.state
-    let cleanedData:Data.Input = {
+function handleMouseInput(this:socketio.Socket, data:any):void {
+    data = data.state;
+    let cleanedData:Data.MouseInput = {
         mouseX:data.mouseX || game.players[this.id].screen.x/2,
         mouseY:data.mouseY || game.players[this.id].screen.y/2,
         clicking:data.clicking,
-        keys: {
-            w:data.keys.w || false,
-            a:data.keys.a || false,
-            s:data.keys.s || false,
-            d:data.keys.d || false
-        }
     }
-    game.handleInput(this, cleanedData);
+    game.handleMouseInput(this, cleanedData);
+}
+
+function handleKeyboardInput(this:socketio.Socket, data:any):void {
+    data = data.state;
+    let cleanedData:Data.KeyboardInput = {
+        w:data.keys.w || false,
+        a:data.keys.a || false,
+        s:data.keys.s || false,
+        d:data.keys.d || false
+    }
+    game.handleKeyboardInput(this, cleanedData);
 }
 
 function chatMessage(this:socketio.Socket, data:any):void {

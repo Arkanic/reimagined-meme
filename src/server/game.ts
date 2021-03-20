@@ -33,9 +33,14 @@ class Game {
         delete this.players[socket.id];
     }
 
-    handleInput(socket:io.Socket, state:Data.Input):void {
+    handleMouseInput(socket:io.Socket, state:Data.MouseInput):void {
         if(!this.players[socket.id]) return;
-        this.players[socket.id].translateInput(state);
+        this.players[socket.id].translateMouseInput(state);
+    }
+
+    handleKeyboardInput(socket:io.Socket, state:Data.KeyboardInput):void {
+        if(!this.players[socket.id]) return;
+        this.players[socket.id].translateKeyboardInput(state);
     }
 
     chatMessage(sender:io.Socket, message:string):void {
