@@ -24,7 +24,7 @@ setDimensions();
 window.addEventListener("resize", debounce(40, setDimensions));
 
 let renderLoop = setInterval(() => {
-    menu.render(ctx);
+    menu.render(ctx, canvas);
 }, 1000/60);
 
 export function startRendering() {
@@ -36,6 +36,6 @@ export function startRendering() {
 export function stopRendering() {
     clearInterval(renderLoop);
     renderLoop = setInterval(() => {
-        menu.render(ctx);
+        menu.render(ctx, canvas);
     }, 1000/60);
 }

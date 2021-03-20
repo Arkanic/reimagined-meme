@@ -42,4 +42,4 @@ function downloadAsset(meta:AssetData):Promise<void> {
 }
 
 export const downloadAssets = () => downloadPromise;
-export const getAsset = (assetName:string) => assets[assetName];
+export const get = (assetName:string) => assets[assetName];
