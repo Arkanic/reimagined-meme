@@ -49,6 +49,7 @@ export const updateMouseInput = throttle(20, (state:Data.MouseInput) => {
 });
 
 export const updateKeyboardInput = throttle(20, (state:Data.KeyboardInput) => {
+    console.log("keyboard");
     socket.emit(constants.msg.keyboardinput, {state});
 });
 

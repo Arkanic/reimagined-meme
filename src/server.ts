@@ -63,10 +63,10 @@ function handleMouseInput(this:socketio.Socket, data:any):void {
 function handleKeyboardInput(this:socketio.Socket, data:any):void {
     data = data.state;
     let cleanedData:Data.KeyboardInput = {
-        w:data.keys.w || false,
-        a:data.keys.a || false,
-        s:data.keys.s || false,
-        d:data.keys.d || false
+        w:data.w || false,
+        a:data.a || false,
+        s:data.s || false,
+        d:data.d || false
     }
     game.handleKeyboardInput(this, cleanedData);
 }

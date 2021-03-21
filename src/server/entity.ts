@@ -21,11 +21,13 @@ class Entity {
         this.position.add(this.velocity);
         this.position.x = Math.max(Math.min(this.position.x, constants.map.size), 0);
         this.position.y = Math.max(Math.min(this.position.y, constants.map.size), 0);
+        this.velocity.x *= 0.8;
+        this.velocity.y *= 0.8;
     }
 
     modifyVelocity(delta:Vector2):void {
         let tVelocity = this.velocity;
-        tVelocity.add(delta);
+        tVelocity.equals(delta);
         tVelocity.x = Math.max(Math.min(tVelocity.x, constants.player.maxSpeed), -constants.player.maxSpeed);
         tVelocity.y = Math.max(Math.min(tVelocity.y, constants.player.maxSpeed), -constants.player.maxSpeed);
         this.velocity = tVelocity;

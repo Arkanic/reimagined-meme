@@ -20,8 +20,8 @@ class Constants {
     constructor() {
         this.player = {
             defaultHealth: 100,
-            maxSpeed: 50,
-            speed: 10,
+            maxSpeed: 5,
+            speed: 2.5,
             radius: 20
         }
         this.map = {

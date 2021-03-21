@@ -2,10 +2,10 @@ import * as networking from "../networking";
 import * as Data from "../../../shared/types/inputObject";
 
 let keyboardKeys:{[unit:string]:number} = {
-    up:87,
-    left:65,
-    down:83,
-    right:68
+    w:87,
+    a:65,
+    s:83,
+    d:68
 }
 let keys:{[unit:string]:boolean} = {};
 
@@ -13,11 +13,11 @@ function checkChangeKey(e:KeyboardEvent, changeTo:boolean):void {
     for(let key in keyboardKeys) {
         if(keyboardKeys[key] == e.keyCode) {
             keys[key] = changeTo;
+            networking.updateKeyboardInput(keys as unknown as Data.KeyboardInput);
             return; // break out of loop
         }
     }
-
-    networking.updateKeyboardInput(keys as unknown as Data.KeyboardInput);
+    
 }
 
 function handleKeyDown(e:KeyboardEvent):void {

@@ -16,6 +16,11 @@ class Vector2 {
         this.x *= a.x;
         this.y *= a.y;
     }
+
+    equals(a:Vector2):void {
+        this.x = a.x;
+        this.y = a.y;
+    }
 }
 
 export default Vector2;
