@@ -5,8 +5,14 @@ import * as menu from "./render/menu";
 import * as game from "./render/game";
 import * as mouse from "./input/mouse";
 import * as keyboard from "./input/keyboard";
+import * as chatbox from "./ui/chatbox";
 
 import bob from "../assets/test.png";
+
+let keyboardMessage:string = chatbox.createMessage("keyboard data");
+setInterval(() => {
+    chatbox.editMessage(keyboardMessage, JSON.stringify(keyboard.getKeyboardState()));
+}, 60/1000)
 
 let canvas:HTMLCanvasElement = <HTMLCanvasElement>document.getElementById("game")!;
 let ctx = canvas.getContext("2d")!;

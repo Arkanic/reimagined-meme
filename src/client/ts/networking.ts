@@ -48,10 +48,9 @@ export const updateMouseInput = throttle(20, (state:Data.MouseInput) => {
     socket.emit(constants.msg.mouseinput, {state});
 });
 
-export const updateKeyboardInput = throttle(20, (state:Data.KeyboardInput) => {
-    console.log("keyboard");
+export const updateKeyboardInput = (state:Data.KeyboardInput) => {
     socket.emit(constants.msg.keyboardinput, {state});
-});
+}
 
 export const sendMessage = throttle(20, (data:Data.Message) => {
     socket.emit(constants.msg.chatmessage, {data});
