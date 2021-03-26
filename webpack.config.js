@@ -108,6 +108,11 @@ module.exports = {
             filename: "index.html",
             template: "src/client/templates/index.pug"
         }),
+        new HtmlWebpackPlugin({
+            filename: "changelog.html",
+            template: "src/client/templates/changelog.pug",
+            chunks: ["changelog"]
+        }),
         new CleanWebpackPlugin()
     ]
-};
+}

@@ -16,6 +16,9 @@ class Constants {
         chatmessage:string;
         serverclosing:string;
     }
+    game: {
+        version:string;
+    }
     
     constructor() {
         this.player = {
@@ -34,6 +37,9 @@ class Constants {
             update: "gameupdate",
             chatmessage: "chatmessage",
             serverclosing: "servershutdown"
+        }
+        this.game = {
+            version: "pre-A1"
         }
     }
 }
