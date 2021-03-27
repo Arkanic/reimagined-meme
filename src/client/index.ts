@@ -1,5 +1,6 @@
 import "./css/main.scss";
 
+import * as state from "./ts/state";
 import * as networking from "./ts/networking";
 import * as render from "./ts/render";
 import * as input from "./ts/input";
@@ -27,6 +28,7 @@ Promise.all([
         networking.play({username:usernameInput.value, screenWidth:window.innerWidth, screenHeight:window.innerHeight});
         logger.log(`Game started. "${usernameInput.value}" @${window.innerWidth}x${window.innerHeight}`);
         playMenu.classList.add("hidden");
+        state.initState();
         input.startInputHandling();
         render.startRendering();
     });

@@ -3,6 +3,7 @@ import constants from "../shared/constants";
 import Entity from "./entity";
 import Vector2 from "./types/vector2";
 import * as Data from "../shared/types/inputObject";
+import * as Serialized from "../shared/types/serializedData";
 
 class Player extends Entity {
     username:string;
@@ -32,7 +33,7 @@ class Player extends Entity {
         super.modifyVelocity(delta);
     }
 
-    serialize() {
+    serialize():Serialized.Player {
         return {
             ...(super.serialize()),
             username: this.username,

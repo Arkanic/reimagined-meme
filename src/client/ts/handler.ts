@@ -1,9 +1,9 @@
-import {newGameUpdateData, getCurrentState} from "./state";
+import {processGameUpdate, getCurrentState} from "./state";
 import * as serialized from "../../shared/types/serializedData";
 import * as chatbox from "./ui/chatbox";
 
 export function handleGameUpdate(update:serialized.World):void {
-    newGameUpdateData(update);
+    processGameUpdate(update);
 }
 
 export function handleChatMessage(data:serialized.ChatMessage):void {
