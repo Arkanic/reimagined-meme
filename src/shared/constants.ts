@@ -39,7 +39,7 @@ class Constants {
             serverclosing: "servershutdown"
         }
         this.game = {
-            version: "pre-A2"
+            version: "pre-A3"
         }
     }
 }
