@@ -4,11 +4,13 @@ import * as assets from "../../assets";
 
 export default function renderPlayer(ctx:CanvasRenderingContext2D, canvas:HTMLCanvasElement, me:serialized.Player|null, player:serialized.Player):void {
     const {x, y} = player.position;
+    const {rotation, username} = player;
     const canvasX:number = canvas.width / 2 + x - me!.position.x;
     const canvasY:number = canvas.height / 2 + y - me!.position.y
 
     ctx.save();
     ctx.translate(canvasX, canvasY);
+    ctx.rotate(rotation);
     ctx.drawImage(
         assets.get("./test.png"),
         -constants.player.radius,
@@ -32,4 +34,9 @@ export default function renderPlayer(ctx:CanvasRenderingContext2D, canvas:HTMLCa
         constants.player.radius * 2 * (1 - player.health / constants.player.defaultHealth),
         2
     );
+
+    ctx.font = "10px Arial";
+    ctx.textAlign = "center";
+    ctx.fillStyle = "white";
+    ctx.fillText(username, canvasX, canvasY + constants.player.radius + 24);
 }

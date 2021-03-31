@@ -8,6 +8,7 @@ class Entity {
     position:Vector2;
     velocity:Vector2;
     maxSpeed:number;
+    rotation:number;
 
     constructor(id:string, position:Vector2, maxSpeed:number) {
         this.id = id;
@@ -15,6 +16,7 @@ class Entity {
         this.position = position;
         this.velocity = new Vector2(0, 0);
         this.maxSpeed = maxSpeed;
+        this.rotation = 0;
     }
 
     update():void {
@@ -44,6 +46,7 @@ class Entity {
     serialize():Serialized.Entity {
         return {
             id: this.id,
+            rotation: this.rotation,
             position: {
                 x: this.position.x,
                 y: this.position.y

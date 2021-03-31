@@ -9,6 +9,7 @@ class Player extends Entity {
     username:string;
     health:number;
     screen:Vector2;
+    clicking:boolean;
 
     constructor(id:string, position:Vector2, screen:Vector2, username:string) {
         super(id, position, constants.player.maxSpeed);
@@ -17,10 +18,13 @@ class Player extends Entity {
 
         this.username = username;
         this.health = constants.player.defaultHealth;
+
+        this.clicking = false;
     }
 
     translateMouseInput(state:Data.MouseInput):void {
-        
+        this.rotation = Math.atan2(state.mouseY - this.screen.y / 2, state.mouseX - this.screen.x / 2);
+        this.clicking = state.clicking;
     }
 
     translateKeyboardInput(state:Data.KeyboardInput):void {

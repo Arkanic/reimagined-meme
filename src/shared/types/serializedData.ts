@@ -1,11 +1,11 @@
 export interface Entity {
     id:string;
     
+    rotation:number;
     position: {
         x:number;
         y:number;
     }
-
     velocity: {
         x:number;
         y:number;
