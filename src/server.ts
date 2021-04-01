@@ -43,7 +43,7 @@ function joinGame(this:socketio.Socket, data:any):void {
     console.log("A user connected.");
     data = data.data;
     let cleanedData:Data.Join = {
-        username:data.username || `Player#${Math.floor(Math.random()*10000)}`,
+        username:String(data.username).substring(0, 50) || `Player#${Math.floor(Math.random()*10000)}`,
         screenWidth:data.screenWidth || 1600,
         screenHeight:data.screenHeight || 900
     };

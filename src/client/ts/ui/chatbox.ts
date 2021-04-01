@@ -47,3 +47,7 @@ export function deleteMessage(id:string):void {
     
     scrollToBottom();
 }
+
+export function colorMessage(message:string, color:string):string {
+    return `<p style="color: ${color};">${message}</p>`;
+}

@@ -18,6 +18,7 @@ class Constants {
     }
     game: {
         version:string;
+        chatBubbleLifetime:number;
     }
     
     constructor() {
@@ -39,7 +40,8 @@ class Constants {
             serverclosing: "servershutdown"
         }
         this.game = {
-            version: "pre-A3"
+            version: "pre-A4",
+            chatBubbleLifetime:5000
         }
     }
 }

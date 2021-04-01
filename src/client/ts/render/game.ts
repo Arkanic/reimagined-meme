@@ -1,9 +1,17 @@
+import {nanoid} from "nanoid";
+
 import * as state from "../state";
 import * as assets from "../assets";
+import * as serialized from "../../../shared/types/serializedData";
 import constants from "../../../shared/constants";
 
 import renderBackground from "./components/background";
 import renderPlayer from "./components/player";
+import renderChatbubble from "./components/chatbubble";
+
+import ChatBubble from "../../types/chatBubble";
+
+let chatBubbles:{[unit:string]:ChatBubble} = {};
 
 export function render(ctx:CanvasRenderingContext2D, canvas:HTMLCanvasElement):void {
     const {me, others} = state.getCurrentState();
@@ -17,4 +25,21 @@ export function render(ctx:CanvasRenderingContext2D, canvas:HTMLCanvasElement):v
 
     renderPlayer(ctx, canvas, me, me);
     others.forEach((p) => {renderPlayer(ctx, canvas, me, p)});
+
+    for(let i in chatBubbles) renderChatbubble(ctx, canvas, me, chatBubbles[i]);
+}
+
+export function addChatMessage(sender:serialized.Player|undefined, message:string):void {
+    if(!sender) return;
+    let player:serialized.Player = sender!;
+
+    let chatBubbleId = nanoid();
+    chatBubbles[chatBubbleId] = {
+        x:sender.position.x,
+        y:sender.position.y - 20,
+        message
+    };
+    setTimeout(() => {
+        delete chatBubbles[chatBubbleId];
+    }, constants.game.chatBubbleLifetime);
 }
