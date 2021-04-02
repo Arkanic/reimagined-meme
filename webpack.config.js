@@ -14,9 +14,10 @@ module.exports = {
         children: true
     },
 
-    entry: [
-        "./src/client/index.ts"
-    ],
+    entry: {
+        index: "./src/client/index.ts",
+        changelog: "./src/client/changelog/index.ts"
+    },
     output: {
         filename: "[contenthash].js",
         path: path.resolve(__dirname, "dist")
@@ -106,7 +107,8 @@ module.exports = {
         }),
         new HtmlWebpackPlugin({
             filename: "index.html",
-            template: "src/client/templates/index.pug"
+            template: "src/client/templates/index.pug",
+            chunks: ["index"]
         }),
         new HtmlWebpackPlugin({
             filename: "changelog.html",
