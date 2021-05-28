@@ -9,6 +9,9 @@ let keyboardKeys:{[unit:string]:number} = {
 }
 let keys:{[unit:string]:boolean} = {};
 
+/**
+ * Check which key caused the event, and map it to the keyboard keys
+ */
 function checkChangeKey(e:KeyboardEvent, changeTo:boolean):void {
     for(let key in keyboardKeys) {
         if(keyboardKeys[key] == e.keyCode) {
@@ -20,18 +23,34 @@ function checkChangeKey(e:KeyboardEvent, changeTo:boolean):void {
     
 }
 
+/**
+ * Handle key down
+ * 
+ * @param e The event
+ */
 function handleKeyDown(e:KeyboardEvent):void {
     checkChangeKey(e, true);
 }
 
+/**
+ * Handle key up
+ * 
+ * @param e The event
+ */
 function handleKeyUp(e:KeyboardEvent):void {
     checkChangeKey(e, false);
 }
 
+/**
+ * Get the current keyboard state
+ */
 export function getKeyboardState():{[unit:string]:boolean} {
     return keys;
 }
 
+/**
+ * Start handling keyboard input
+ */
 export function startKeyboardInputHandling():void {
     Object.keys(keyboardKeys).forEach((key) => {
         keys[key] = false;
@@ -41,6 +60,9 @@ export function startKeyboardInputHandling():void {
     window.addEventListener("keyup", handleKeyUp);
 }
 
+/**
+ * Stop handling keyboard input
+ */
 export function stopKeyboardInputHandling():void {
     window.removeEventListener("keydown", handleKeyDown);
     window.removeEventListener("keyup", handleKeyUp);

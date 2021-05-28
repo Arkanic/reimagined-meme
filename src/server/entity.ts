@@ -19,6 +19,9 @@ class Entity {
         this.rotation = 0;
     }
 
+    /**
+     * Update the current entity.
+     */
     update():void {
         this.position.add(this.velocity);
         this.position.x = Math.max(Math.min(this.position.x, constants.map.size), 0);
@@ -27,6 +30,11 @@ class Entity {
         this.velocity.y *= 0.8;
     }
 
+    /**
+     * Modifies velocity based on a delta parameter given.
+     * 
+     * @param delta The change in velocity
+     */
     modifyVelocity(delta:Vector2):void {
         let tVelocity = this.velocity;
         tVelocity.equals(delta);
@@ -35,6 +43,13 @@ class Entity {
         this.velocity = tVelocity;
     }
 
+    /**
+     * Returns the distance between self and another object using pythagorean theorem.
+     * 
+     * @param object The object being compared to
+     * 
+     * @todo use something other that `Math.sqrt()`, is rather slow
+     */
     distanceTo(object:{position:Vector2}):number {
         let temp = new Vector2(
             this.position.x - object.position.x,
@@ -43,6 +58,11 @@ class Entity {
         return Math.sqrt(temp.x * temp.x + temp.y * temp.y);
     }
 
+    /**
+     * Returns a serialized version of `this`. Used for sending information to client.
+     * 
+     * @returns A serialized version of `this`, with only whitelisted parameters.
+     */
     serialize():Serialized.Entity {
         return {
             id: this.id,

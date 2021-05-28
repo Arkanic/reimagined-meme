@@ -2,6 +2,14 @@ import constants from "../../../../shared/constants";
 import * as serialized from "../../../../shared/types/serializedData";
 import * as assets from "../../assets";
 
+/**
+ * Render a player
+ * 
+ * @param ctx The canvas 2D context
+ * @param canvas The canvas element
+ * @param me The player
+ * @param player The other player
+ */
 export default function renderPlayer(ctx:CanvasRenderingContext2D, canvas:HTMLCanvasElement, me:serialized.Player|null, player:serialized.Player):void {
     const {x, y} = player.position;
     const {rotation, username} = player;

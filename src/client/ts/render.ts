@@ -20,6 +20,9 @@ let ctx = canvas.getContext("2d")!;
 ctx.font = "10px Arial";
 ctx.textAlign = "center";
 
+/**
+ * Sets the canvas dimensions based on current width and height
+ */
 function setDimensions():void {
     const scaleRatio = Math.max(1, 800 / window.innerWidth);
     canvas.width = scaleRatio * window.innerWidth;
@@ -33,12 +36,19 @@ let renderLoop = setInterval(() => {
     menu.render(ctx, canvas);
 }, 1000/60);
 
+/**
+ * Start the render loop, stop menu loop
+ */
 export function startRendering() {
     clearInterval(renderLoop);
     renderLoop = setInterval(() => {
         game.render(ctx, canvas);
     }, 1000/60);
 }
+
+/**
+ * Stop the render loop, start menu loop
+ */
 export function stopRendering() {
     clearInterval(renderLoop);
     renderLoop = setInterval(() => {

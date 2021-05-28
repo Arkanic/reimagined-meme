@@ -1,5 +1,13 @@
 import constants from "../../../../shared/constants";
 
+/**
+ * Render the background
+ * 
+ * @param ctx The canvas 2D context
+ * @param canvas The canvas element
+ * @param x The render x
+ * @param y The render y
+ */
 export default function renderBackground(ctx:CanvasRenderingContext2D, canvas:HTMLCanvasElement, x:number, y:number):void {
     const backgroundX:number = constants.map.size / 2 - x + canvas.width / 2;
     const backgroundY:number = constants.map.size / 2 - y + canvas.width / 2;

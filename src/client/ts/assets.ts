@@ -12,6 +12,11 @@ interface AssetData {
     url:string;
 }
 
+/**
+ * Handle the name-link mapping for webpacked urls
+ * 
+ * @param r The name-link map
+ */
 function handleRequireContext(r:__WebpackModuleApi.RequireContext):Array<AssetData> {
     let names:Array<string> = r.keys();
     let urls:Array<string> = r.keys().map(r) as Array<string>;
@@ -27,6 +32,11 @@ function handleRequireContext(r:__WebpackModuleApi.RequireContext):Array<AssetDa
     return assetData;
 }
 
+/**
+ * Download an asset
+ * 
+ * @param meta The asset metadata
+ */
 function downloadAsset(meta:AssetData):Promise<void> {
     return new Promise(resolve => {
         const asset:HTMLImageElement = new Image();

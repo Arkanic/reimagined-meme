@@ -20,6 +20,12 @@ class Game {
         setInterval(this.update.bind(this), 10); // .bind() makes it run on the local scope, rather than having update() run on the default values for the class
     }
 
+    /**
+     * Adds a player to the game object
+     * 
+     * @param socket The socket.io object of the player
+     * @param data The join data given by the client
+     */
     addPlayer(socket:io.Socket, data:Data.Join):void {
         this.sockets[socket.id] = socket;
 
@@ -28,21 +34,44 @@ class Game {
         this.players[socket.id] = new Player(socket.id, position, screen, striptags(data.username));
     }
 
+    /**
+     * Removes a player from the game object
+     * 
+     * @param socket The socket.io object of the player
+     */
     removePlayer(socket:io.Socket):void {
         delete this.sockets[socket.id];
         delete this.players[socket.id];
     }
 
+    /**
+     * Handles the mouse input event sent by the client
+     * 
+     * @param socket The socket.io object of the player
+     * @param state The mouse state given by the player
+     */
     handleMouseInput(socket:io.Socket, state:Data.MouseInput):void {
         if(!this.players[socket.id]) return;
         this.players[socket.id].translateMouseInput(state);
     }
 
+    /**
+     * Handles keyboard input sent by the client
+     * 
+     * @param socket The socket.io object of the player
+     * @param state The keyboard state given by the player
+     */
     handleKeyboardInput(socket:io.Socket, state:Data.KeyboardInput):void {
         if(!this.players[socket.id]) return;
         this.players[socket.id].translateKeyboardInput(state);
     }
 
+    /**
+     * Handles chat message input sent by the client
+     * 
+     * @param sender The socket.io object of the player
+     * @param message The message sent by the player
+     */
     chatMessage(sender:io.Socket, message:string):void {
         Object.keys(this.sockets).forEach(id => {
             const socket = this.sockets[id];
@@ -50,6 +79,11 @@ class Game {
         });
     }
 
+    /**
+     * Updates the entire game state.
+     * 
+     * @returns A seirialized object designed to be sent to the client
+     */
     update():void {
         Object.keys(this.sockets).forEach(id => {
             const socket = this.sockets[id];

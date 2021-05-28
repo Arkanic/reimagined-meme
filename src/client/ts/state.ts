@@ -6,11 +6,19 @@ const gameUpdates:Array<serialized.World> = [];
 let gameStart:number = 0;
 let firstServerTimestamp:number = 0;
 
+/**
+ * Initiate the state
+ */
 export function initState():void {
     gameStart = 0;
     firstServerTimestamp = 0;
 }
 
+/**
+ * Process a given game update for the state
+ * 
+ * @param update The given game update
+ */
 export function processGameUpdate(update:serialized.World):void {
     if(!firstServerTimestamp) {
         firstServerTimestamp = update.time;
@@ -24,10 +32,20 @@ export function processGameUpdate(update:serialized.World):void {
     }
 }
 
+/**
+ * Rough current server time
+ * 
+ * @returns Current server time in millis since jan 1, 1970
+ */
 function currentServerTime():number {
     return firstServerTimestamp + (Date.now() - gameStart) - renderdelay;
 }
 
+/**
+ * The base update needed based on the current state
+ * 
+ * @returns The index of the base update. -1 if it doesn't exist.
+ */
 function getBaseUpdate():number {
     const serverTime:number = currentServerTime();
     for(let i = gameUpdates.length - 1; i >= 0; i--) {
@@ -38,6 +56,11 @@ function getBaseUpdate():number {
     return -1;
 }
 
+/**
+ * Returns the current state, un-interpolated
+ * 
+ * @returns The current un-interpolated state
+ */
 export function getCurrentState():serialized.World {
     if(!firstServerTimestamp) return <serialized.World>{};
 
@@ -58,6 +81,15 @@ export function getCurrentState():serialized.World {
     }
 }
 
+/**
+ * Interpolate an object that extends from the serialized entity.
+ * 
+ * @param object1 Object from update 1
+ * @param object2 Object from update 2
+ * @param ratio The ratio between the objects
+ * 
+ * @returns The interpolated result
+ */
 function interpolateObject<T extends serialized.Entity>(object1:T, object2:T, ratio:number):T {
     if(!object2) return object1;
 
@@ -73,6 +105,15 @@ function interpolateObject<T extends serialized.Entity>(object1:T, object2:T, ra
     return interpolated as T;
 }
 
+/**
+ * Like interpolateObject, but for arrays
+ * 
+ * @param objects1 Array of objects from update 1
+ * @param objects2 Array of object from update 2
+ * @param ratio The ratio between the objects
+ * 
+ * @returns An array of interpolated results
+ */
 function interpolateObjectArray<T extends serialized.Entity>(objects1:Array<T>, objects2:Array<T>, ratio:number):Array<T> {
     return objects1.map(o => {
         return interpolateObject(o, objects2.find(o2 => {
@@ -81,10 +122,28 @@ function interpolateObjectArray<T extends serialized.Entity>(objects1:Array<T>, 
     });
 }
 
+/**
+ * Interpolates a number
+ * 
+ * @param number1 Number from update 1
+ * @param number2 Number from update 2
+ * @param ratio The ratio between the numbers
+ * 
+ * @returns The interpolated result
+ */
 function interpolateNumber(number1:number, number2:number, ratio:number):number {
     return number1 + (number2 - number1) * ratio;
 }
 
+/**
+ * Interpolates an unknown value
+ * 
+ * @param unknown1 Unknown from update 1
+ * @param unknown2 Unknown from update 2
+ * @param ratio The ratio between the unknowns
+ * 
+ * @returns The interpolated result
+ */
 function interpolateUnknownValue(unknown1:any, unknown2:any, ratio:number):any {
     return unknown2;
 }

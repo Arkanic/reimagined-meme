@@ -22,11 +22,21 @@ class Player extends Entity {
         this.clicking = false;
     }
 
+    /**
+     * Translates client mouse data into usable information.
+     * 
+     * @param state The mouse state
+     */
     translateMouseInput(state:Data.MouseInput):void {
         this.rotation = Math.atan2(state.mouseY - this.screen.y / 2, state.mouseX - this.screen.x / 2);
         this.clicking = state.clicking;
     }
 
+    /**
+     * Translates client keyboard data into usable information.
+     * 
+     * @param state The keyboard state
+     */
     translateKeyboardInput(state:Data.KeyboardInput):void {
         let delta = new Vector2(0, 0);
         let speed = constants.player.speed;

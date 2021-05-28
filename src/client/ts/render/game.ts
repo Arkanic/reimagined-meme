@@ -13,6 +13,12 @@ import ChatBubble from "../../types/chatBubble";
 
 let chatBubbles:{[unit:string]:ChatBubble} = {};
 
+/**
+ * Render the game
+ * 
+ * @param ctx The canvas 2D context
+ * @param canvas The canvas element
+ */
 export function render(ctx:CanvasRenderingContext2D, canvas:HTMLCanvasElement):void {
     const {me, others} = state.getCurrentState();
     if(!me) return; // if dead
@@ -29,6 +35,12 @@ export function render(ctx:CanvasRenderingContext2D, canvas:HTMLCanvasElement):v
     for(let i in chatBubbles) renderChatbubble(ctx, canvas, me, chatBubbles[i]);
 }
 
+/**
+ * Add a chat message to the chatbox
+ * 
+ * @param sender The message sender
+ * @param message The message content
+ */
 export function addChatMessage(sender:serialized.Player|undefined, message:string):void {
     if(!sender) return;
     let player:serialized.Player = sender!;
