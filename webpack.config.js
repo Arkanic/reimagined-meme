@@ -96,6 +96,10 @@ module.exports = {
                 {
                     from: "src/client/assets/icons/",
                     to: ""
+                },
+                {
+                    from: "src/client/assets/changelog",
+                    to: "changelog"
                 }
             ]
         }),
