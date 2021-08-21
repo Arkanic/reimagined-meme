@@ -7,7 +7,6 @@ import * as Serialized from "../shared/types/serializedData";
 
 import constants from "../shared/constants";
 
-
 class Game {
     sockets:{[key:string]:io.Socket};
     players:{[ket:string]:Player};
@@ -50,7 +49,7 @@ class Game {
      * @param socket The socket.io object of the player
      * @param state The mouse state given by the player
      */
-    handleMouseInput(socket:io.Socket, state:Data.MouseInput):void {
+    handleMouseInput(socket:io.Socket, state:Data.MouseInput|any):void {
         if(!this.players[socket.id]) return;
         this.players[socket.id].translateMouseInput(state);
     }
