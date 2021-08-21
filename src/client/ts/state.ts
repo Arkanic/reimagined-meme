@@ -56,10 +56,21 @@ function getBaseUpdate():number {
     return -1;
 }
 
+
+
 /**
- * Returns the current state, un-interpolated
+ * Pad the interpolated ratio to balance between smoothness and lag
  * 
- * @returns The current un-interpolated state
+ * @param ratio The server time ratio from between updates
+ */
+function padRatio(ratio:number):number {
+    return Math.max(ratio + 0.25, 1);
+}
+
+/**
+ * Returns the current state, interpolated
+ * 
+ * @returns The current interpolated state
  */
 export function getCurrentState():serialized.World {
     if(!firstServerTimestamp) return <serialized.World>{};
@@ -72,7 +83,7 @@ export function getCurrentState():serialized.World {
     } else {
         const baseUpdate:serialized.World = gameUpdates[base];
         const next:serialized.World = gameUpdates[base + 1];
-        const ratio:number = (serverTime - baseUpdate.time) / (next.time - baseUpdate.time);
+        const ratio:number = padRatio((serverTime - baseUpdate.time) / (next.time - baseUpdate.time));
         return {
             me: interpolateObject<serialized.Player>(baseUpdate.me, next.me, ratio),
             others: interpolateObjectArray<serialized.Player>(baseUpdate.others, next.others, ratio),

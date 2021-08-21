@@ -26,7 +26,7 @@ class Constants {
             defaultHealth: 100,
             maxSpeed: 5,
             speed: 2.5,
-            radius: 20
+            radius: 32
         }
         this.map = {
             size: 2000
