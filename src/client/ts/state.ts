@@ -62,7 +62,7 @@ function getBaseUpdate():number {
  * @param ratio The server time ratio from between updates
  */
 function padRatio(ratio:number):number {
-    return Math.max(ratio + 0.5, 1);
+    return Math.max(ratio + 0.25, 1);
 }
 
 /**
