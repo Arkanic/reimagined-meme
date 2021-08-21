@@ -44,6 +44,7 @@ class Player extends Entity {
         if(state.a) delta.x -= speed;
         if(state.s) delta.y += speed;
         if(state.d) delta.x += speed;
+
         super.modifyVelocity(delta);
     }
 

@@ -56,15 +56,13 @@ function getBaseUpdate():number {
     return -1;
 }
 
-
-
 /**
  * Pad the interpolated ratio to balance between smoothness and lag
  * 
  * @param ratio The server time ratio from between updates
  */
 function padRatio(ratio:number):number {
-    return Math.max(ratio + 0.25, 1);
+    return Math.max(ratio + 0.5, 1);
 }
 
 /**
