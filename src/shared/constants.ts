@@ -40,7 +40,7 @@ class Constants {
             serverclosing: "servershutdown"
         }
         this.game = {
-            version: "pre-A4",
+            version: "pre-A5",
             chatBubbleLifetime:5000
         }
     }

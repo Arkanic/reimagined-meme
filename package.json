@@ -5,8 +5,14 @@
   "main": "src/server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "gulp build",
-    "quick": "npm run build && node ./build/server.js"
+    "start": "npm run quick",
+    "oldbuild": "gulp build",
+    "quick": "npm run build && npm run server",
+    "build": "npm run clean && npm run compile && npm run dist",
+    "clean": "rm -rf ./dist/ ./build/",
+    "compile": "tsc",
+    "dist": "webpack --config webpack.config.js",
+    "server": "node ./build/src/server.js"
   },
   "repository": {
     "type": "git",
@@ -33,23 +39,13 @@
     "css-loader": "^5.0.2",
     "css-modules-typescript-loader": "^4.0.1",
     "death": "^1.1.0",
-    "del": "^4.1.1",
     "express": "^4.17.1",
     "file-loader": "^6.2.0",
-    "gulp": "^4.0.2",
-    "gulp-debug": "^4.0.0",
-    "gulp-ignore": "^3.0.0",
-    "gulp-sourcemaps": "^3.0.0",
-    "gulp-typescript": "^6.0.0-alpha.1",
-    "gulp-webpack": "^0.0.1",
     "html-loader": "^2.1.0",
     "html-webpack-plugin": "^5.2.0",
-    "image-webpack-loader": "^7.0.1",
     "mini-css-extract-plugin": "^1.3.8",
     "nanoid": "^3.1.22",
-    "node-sass": "^5.0.0",
-    "pug": "^3.0.1",
-    "pug-html-loader": "^1.1.5",
+    "node-sass": "^6.0.1",
     "sass-loader": "^11.0.1",
     "socket.io": "^3.1.1",
     "socket.io-client": "^3.1.1",
@@ -59,11 +55,9 @@
     "throttle-debounce": "^3.0.1",
     "ts-loader": "^8.0.17",
     "typescript": "^4.1.5",
-    "webpack": "^5.23.0",
-    "webpack-stream": "^6.1.2"
+    "webpack": "^5.23.0"
   },
   "devDependencies": {
-    "webpack-bundle-analyzer": "^4.4.2",
     "webpack-cli": "^4.5.0"
   }
 }

@@ -79,9 +79,6 @@ module.exports = {
                 use: [
                     {
                         loader: "html-loader"
-                    },
-                    {
-                        loader: "pug-html-loader"
                     }
                 ]
             },
@@ -107,12 +104,12 @@ module.exports = {
         }),
         new HtmlWebpackPlugin({
             filename: "index.html",
-            template: "src/client/templates/index.pug",
+            template: "src/client/templates/index.html",
             chunks: ["index"]
         }),
         new HtmlWebpackPlugin({
             filename: "changelog.html",
-            template: "src/client/templates/changelog.pug",
+            template: "src/client/templates/changelog.html",
             chunks: ["changelog"]
         }),
         new CleanWebpackPlugin()
