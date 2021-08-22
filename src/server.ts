@@ -5,6 +5,7 @@ import onDeath from "death";
 
 import constants from "./shared/constants";
 import Game from "./server/game";
+import * as protocol from "./server/protocol";
 
 import * as Data from "./shared/types/inputObject";
 
@@ -39,42 +40,61 @@ protoServer.listen(8080, function() {
 
 let game = new Game();
 
+function checkValidation(s:socketio.Socket, json:any, policy:string):boolean {
+    if(!protocol.validateInput(json, policy)) {
+        s.emit(msg.serverclosing, {message:"Protocol error. This is either a bug, or you have done something you shouldn't have."});
+        s.disconnect();
+
+        return true;
+    }
+
+    return false;
+}
+
 function joinGame(this:socketio.Socket, data:any):void {
     console.log("A user connected.");
     data = data.data;
+    if(checkValidation(this, data, "Join")) return;
+
     let cleanedData:Data.Join = {
         username:String(data.username).substring(0, 50) || `Player#${Math.floor(Math.random()*10000)}`,
-        screenWidth:data.screenWidth || 1600,
-        screenHeight:data.screenHeight || 900
+        screenWidth:Number(data.screenWidth) || 1600,
+        screenHeight:Number(data.screenHeight) || 900
     };
     game.addPlayer(this, cleanedData);
 }
 
 function handleMouseInput(this:socketio.Socket, data:any):void {
     data = data.state;
+    if(checkValidation(this, data, "MouseInput")) return;
+
     let cleanedData:Data.MouseInput = {
-        mouseX:data.mouseX || game.players[this.id].screen.x/2,
-        mouseY:data.mouseY || game.players[this.id].screen.y/2,
-        clicking:data.clicking,
+        mouseX:Number(data.mouseX) || game.players[this.id].screen.x/2,
+        mouseY:Number(data.mouseY) || game.players[this.id].screen.y/2,
+        clicking:Boolean(data.clicking),
     }
     game.handleMouseInput(this, cleanedData);
 }
 
 function handleKeyboardInput(this:socketio.Socket, data:any):void {
     data = data.state;
+    if(checkValidation(this, data, "KeyboardInput")) return;
+
     let cleanedData:Data.KeyboardInput = {
-        w:data.w || false,
-        a:data.a || false,
-        s:data.s || false,
-        d:data.d || false
+        w:Boolean(data.w) || false,
+        a:Boolean(data.a) || false,
+        s:Boolean(data.s) || false,
+        d:Boolean(data.d) || false
     }
     game.handleKeyboardInput(this, cleanedData);
 }
 
 function chatMessage(this:socketio.Socket, data:any):void {
     data = data.data;
+    if(checkValidation(this, data, "Message")) return;
+
     if(!data.message) return;
-    game.chatMessage(this, data.message);
+    game.chatMessage(this, String(data.message));
 }
 
 function disconnect(this:socketio.Socket) {
