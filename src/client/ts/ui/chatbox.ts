@@ -4,11 +4,30 @@ import * as networking from "../networking";
 let chatbox:HTMLElement = document.getElementById("chat-messages")!;
 let inputbox:HTMLInputElement = <HTMLInputElement>document.getElementById("chat-text-input")!;
 
-inputbox.addEventListener("keydown", e => {
-    if(!(e.keyCode == 13)) return;
-    networking.sendMessage({message:inputbox.value});
-    inputbox.value = "";
-});
+let selected:boolean = false;
+
+/**
+ * Is the chat box currently selected?
+ */
+export function chatboxSelected():boolean {
+    return selected;
+}
+export function startListening() {
+    inputbox.addEventListener("keydown", e => {
+        if(!(e.keyCode == 13)) return;
+        networking.sendMessage({message:inputbox.value});
+        inputbox.value = "";
+    });
+
+    window.addEventListener("keydown", e => {
+        if(!(e.keyCode == 13)) return;
+
+        if(selected) inputbox.blur();
+        else inputbox.focus();
+
+        selected = !selected;
+    });
+}
 
 /**
  * Scroll to the bottom of the chatbox

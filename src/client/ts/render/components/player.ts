@@ -43,7 +43,7 @@ export default function renderPlayer(ctx:CanvasRenderingContext2D, canvas:HTMLCa
         2
     );
 
-    ctx.font = "10px Arial";
+    ctx.font = "12px Arial";
     ctx.textAlign = "center";
     ctx.fillStyle = "white";
     ctx.fillText(username, canvasX, canvasY + constants.player.radius + 24);

@@ -1,5 +1,6 @@
 import * as networking from "../networking";
 import * as Data from "../../../shared/types/inputObject";
+import * as chatbox from "../ui/chatbox";
 
 let keyboardKeys:{[unit:string]:number} = {
     w:87,
@@ -13,6 +14,7 @@ let keys:{[unit:string]:boolean} = {};
  * Check which key caused the event, and map it to the keyboard keys
  */
 function checkChangeKey(e:KeyboardEvent, changeTo:boolean):void {
+    if(chatbox.chatboxSelected()) return;
     for(let key in keyboardKeys) {
         if(keyboardKeys[key] == e.keyCode) {
             keys[key] = changeTo;

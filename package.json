@@ -11,7 +11,7 @@
     "build": "npm run clean && npm run compile && npm run dist",
     "clean": "rm -rf ./dist/ ./build/",
     "compile": "tsc",
-    "dist": "webpack --config webpack.config.js",
+    "dist": "webpack --config webpack.config.js --progress",
     "server": "node ./build/src/server.js"
   },
   "repository": {

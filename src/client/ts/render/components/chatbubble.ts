@@ -19,7 +19,7 @@ export default function renderChatBubble(ctx:CanvasRenderingContext2D, canvas:HT
     ctx.save();
     ctx.translate(canvasX, canvasY);
     ctx.fillStyle = "white";
-    ctx.font = "10px Arial";
+    ctx.font = "16px Arial";
     ctx.fillText(message, 0, 0);
     ctx.restore();
 }

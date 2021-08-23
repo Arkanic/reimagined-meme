@@ -33,6 +33,7 @@ Promise.all([
         playMenu.classList.add("hidden");
         state.initState();
         input.startInputHandling();
+        chatbox.startListening();
         render.startRendering();
     });
 }).catch(logger.error);
