@@ -48,8 +48,6 @@ class Entity {
      * Returns the distance between self and another object using pythagorean theorem.
      * 
      * @param object The object being compared to
-     * 
-     * @todo use something other that `Math.sqrt()`, is rather slow
      */
     distanceTo(object:{position:Vector2}):number {
         let temp = new Vector2(
