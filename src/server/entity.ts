@@ -1,6 +1,7 @@
 import Vector2 from "./types/vector2";
 import * as Serialized from "../shared/types/serializedData";
 import constants from "../shared/constants";
+import sqrt from "../shared/utils/sqrt";
 
 class Entity {
     id:string;
@@ -55,7 +56,7 @@ class Entity {
             this.position.x - object.position.x,
             this.position.y - object.position.y
         );
-        return Math.sqrt(temp.x * temp.x + temp.y * temp.y);
+        return sqrt(temp.x * temp.x + temp.y * temp.y);
     }
 
     /**
