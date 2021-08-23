@@ -1,3 +1,5 @@
+import {Bodies, Body} from "matter-js";
+
 import constants from "../shared/constants";
 
 import Entity from "./entity";
@@ -12,7 +14,7 @@ class Player extends Entity {
     clicking:boolean;
 
     constructor(id:string, position:Vector2, screen:Vector2, username:string) {
-        super(id, position, constants.player.maxSpeed);
+        super(id, position, constants.player.maxSpeed, "player");
 
         this.screen = screen;
 
@@ -20,6 +22,10 @@ class Player extends Entity {
         this.health = constants.player.defaultHealth;
 
         this.clicking = false;
+
+        this.body = Bodies.circle(position.x, position.y, constants.player.radius, {
+            inertia: Infinity
+        });
     }
 
     /**
@@ -27,9 +33,10 @@ class Player extends Entity {
      * 
      * @param state The mouse state
      */
-    translateMouseInput(state:Data.MouseInput):void {
-        this.rotation = Math.atan2(state.mouseY - this.screen.y / 2, state.mouseX - this.screen.x / 2);
+    translateMouseInput(state:Data.MouseInput):void { 
         this.clicking = state.clicking;
+
+        Body.setAngle(this.body, Math.atan2(state.mouseY - this.screen.y / 2, state.mouseX - this.screen.x / 2));
     }
 
     /**

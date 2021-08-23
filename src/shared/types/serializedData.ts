@@ -9,7 +9,9 @@ export interface Entity {
     velocity: {
         x:number;
         y:number;
-    }
+    },
+
+    drawName:string;
 }
 
 export interface Player extends Entity {
