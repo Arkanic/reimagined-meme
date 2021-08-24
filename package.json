@@ -5,7 +5,7 @@
   "main": "src/server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "npm run quick",
+    "start": "npm run server",
     "oldbuild": "gulp build",
     "quick": "npm run build && npm run server",
     "build": "npm run clean && npm run compile && npm run dist",
