@@ -20,6 +20,11 @@ class Constants {
         version:string;
         chatBubbleLifetime:number;
     }
+    bodies: {
+        barrel: {
+            radius:number
+        }
+    }
     
     constructor() {
         this.player = {
@@ -28,8 +33,13 @@ class Constants {
             speed: 2.5,
             radius: 32
         }
+        this.bodies = {
+            barrel: {
+                radius: 40
+            }
+        }
         this.map = {
-            size: 2000
+            size: 4000
         }
         this.msg = {
             join: "joingame",

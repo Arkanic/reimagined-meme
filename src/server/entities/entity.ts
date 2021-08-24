@@ -1,9 +1,9 @@
 import {Body, Bodies} from "matter-js";
 
-import Vector2 from "./types/vector2";
-import * as Serialized from "../shared/types/serializedData";
-import constants from "../shared/constants";
-import sqrt from "../shared/utils/sqrt";
+import Vector2 from "../types/vector2";
+import * as Serialized from "../../shared/types/serializedData";
+import constants from "../../shared/constants";
+import sqrt from "../../shared/utils/sqrt";
 
 abstract class Entity {
     id:string;

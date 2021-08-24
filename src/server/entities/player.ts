@@ -1,11 +1,11 @@
 import {Bodies, Body} from "matter-js";
 
-import constants from "../shared/constants";
+import constants from "../../shared/constants";
 
 import Entity from "./entity";
-import Vector2 from "./types/vector2";
-import * as Data from "../shared/types/inputObject";
-import * as Serialized from "../shared/types/serializedData";
+import Vector2 from "../types/vector2";
+import * as Data from "../../shared/types/inputObject";
+import * as Serialized from "../../shared/types/serializedData";
 
 class Player extends Entity {
     username:string;

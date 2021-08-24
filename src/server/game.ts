@@ -3,9 +3,10 @@ import striptags from "striptags";
 import {Engine, World, Composite, Bodies} from "matter-js";
 import {nanoid} from "nanoid";
 
-import Entity from "./entity";
-import Player from "./player";
-import Wall from "./wall";
+import Entity from "./entities/entity";
+import Player from "./entities/player";
+import Wall from "./entities/wall";
+import Barrel from "./entities/barrel";
 import Vector2 from "./types/vector2";
 import * as Data from "../shared/types/inputObject";
 import * as Serialized from "../shared/types/serializedData";
@@ -50,10 +51,19 @@ class Game {
         );
         this.addEntity(leftWall);
 
+        for(let i = 0; i < 10; i++) {
+            let position = new Vector2(Math.random() * constants.map.size, Math.random() * constants.map.size);
+            let barrel = new Barrel(nanoid(), position);
+
+            this.addEntity(barrel);
+        }
+
         this.then = Date.now();
         this.now = 0;
 
         setInterval(this.update.bind(this), 10); // .bind() makes it run on the local scope, rather than having update() run on the default values for the class
+
+        console.log("Game initialized.");
     }
 
     /**
@@ -98,7 +108,7 @@ class Game {
      * @param socket The socket.io object of the player
      */
     removePlayer(socket:io.Socket):void {
-        World.remove(this.engine.world, this.players[socket.id].body);
+        if(this.players[socket.id]) World.remove(this.engine.world, this.players[socket.id].body);
 
         delete this.sockets[socket.id];
         delete this.players[socket.id];
@@ -164,13 +174,18 @@ class Game {
 
     createUpdate(player:Player):Serialized.World {
         const nearbyPlayers:Array<Player> = Object.values<Player>(this.players).filter(
-            p => p !== player && p.distanceTo(player) <= constants.map.size
+            p => p !== player && p.distanceTo(player) <= constants.map.size / 2
+        );
+
+        const nearbyEntities:Array<Entity> = Object.values<Entity>(this.entities).filter(
+            e => e.distanceTo(player) <= constants.map.size / 2
         );
 
         return {
             time: Date.now(),
             me: player.serialize(),
-            others: nearbyPlayers.map(p => p.serialize())
+            others: nearbyPlayers.map(p => p.serialize()),
+            entities: nearbyEntities.map(e => e.serialize())
         }
     }
 }

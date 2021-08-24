@@ -7,6 +7,7 @@ import constants from "../../../shared/constants";
 
 import renderBackground from "./components/background";
 import renderPlayer from "./components/player";
+import renderBarrel from "./components/barrel";
 import renderChatbubble from "./components/chatbubble";
 
 import ChatBubble from "../../types/chatBubble";
@@ -20,7 +21,7 @@ let chatBubbles:{[unit:string]:ChatBubble} = {};
  * @param canvas The canvas element
  */
 export function render(ctx:CanvasRenderingContext2D, canvas:HTMLCanvasElement):void {
-    const {me, others} = state.getCurrentState();
+    const {me, others, entities} = state.getCurrentState();
     if(!me) return; // if dead
 
     renderBackground(ctx, canvas, me.position.x, me.position.y);
@@ -31,6 +32,12 @@ export function render(ctx:CanvasRenderingContext2D, canvas:HTMLCanvasElement):v
 
     renderPlayer(ctx, canvas, me, me);
     others.forEach((p) => {renderPlayer(ctx, canvas, me, p)});
+    entities.forEach((e) => {
+        switch(e.drawName) {
+            case "barrel":
+                renderBarrel(ctx, canvas, me, e);
+        }
+    })
 
     for(let i in chatBubbles) renderChatbubble(ctx, canvas, me, chatBubbles[i]);
 }

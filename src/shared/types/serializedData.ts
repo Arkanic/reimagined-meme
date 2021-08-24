@@ -23,6 +23,7 @@ export interface World {
     time:number;
     me:Player;
     others:Array<Player>;
+    entities:Array<Entity>;
 }
 
 export interface ChatMessage {

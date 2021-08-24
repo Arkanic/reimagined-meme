@@ -85,6 +85,7 @@ export function getCurrentState():serialized.World {
         return {
             me: interpolateObject<serialized.Player>(baseUpdate.me, next.me, ratio),
             others: interpolateObjectArray<serialized.Player>(baseUpdate.others, next.others, ratio),
+            entities: interpolateObjectArray<serialized.Entity>(baseUpdate.entities, next.entities, ratio),
             time: interpolateNumber(baseUpdate.time, next.time, ratio)
         }
     }
