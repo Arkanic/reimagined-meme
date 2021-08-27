@@ -7,6 +7,7 @@ import Entity from "./entities/entity";
 import Player from "./entities/player";
 import Wall from "./entities/wall";
 import Barrel from "./entities/barrel";
+import DeployableWall from "./entities/deployableWall";
 import Vector2 from "./types/vector2";
 import * as Data from "../shared/types/inputObject";
 import * as Serialized from "../shared/types/serializedData";
@@ -57,6 +58,9 @@ class Game {
 
             this.addEntity(barrel);
         }
+
+        let deployable = new DeployableWall(nanoid(), new Vector2(1000, 1000));
+        this.addEntity(deployable);
 
         this.then = Date.now();
         this.now = 0;

@@ -24,6 +24,10 @@ class Constants {
         barrel: {
             radius:number
         }
+        deployableWall: {
+            width:number;
+            height:number;
+        }
     }
     
     constructor() {
@@ -36,6 +40,10 @@ class Constants {
         this.bodies = {
             barrel: {
                 radius: 40
+            },
+            deployableWall: {
+                width: 64,
+                height: 16
             }
         }
         this.map = {
