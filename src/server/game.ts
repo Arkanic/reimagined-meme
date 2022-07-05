@@ -147,6 +147,9 @@ class Game {
      * @param message The message sent by the player
      */
     chatMessage(sender:io.Socket, message:string):void {
+        let player = this.players[sender.id];
+        console.log(`[${player.username}]: ${message}`);
+
         Object.keys(this.sockets).forEach(id => {
             const socket = this.sockets[id];
             socket.emit(constants.msg.chatmessage, {message:striptags(message).slice(0, 300), sender:sender.id});

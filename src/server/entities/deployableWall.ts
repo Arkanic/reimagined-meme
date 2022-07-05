@@ -13,7 +13,7 @@ class DeployableWall extends Entity {
             friction: 100
         });
         Body.setMass(this.body, 1000);
-        Body.setDensity(this.body, 1);
+        Body.setDensity(this.body, 0.5);
     }
 }
 

@@ -21,10 +21,10 @@ export default function renderPlayer(ctx:CanvasRenderingContext2D, canvas:HTMLCa
     ctx.rotate(rotation);
     ctx.drawImage(
         assets.get("./player.png"),
-        -constants.player.radius,
-        -constants.player.radius,
-        constants.player.radius * 2,
-        constants.player.radius * 2
+        -constants.player.radius - 4,
+        -constants.player.radius - 4,
+        constants.player.radius * 2 + 4,
+        constants.player.radius * 2 + 4
     );
     ctx.restore();
 
