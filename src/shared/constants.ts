@@ -1,68 +1,33 @@
-class Constants {
+const constants = {
     player: {
-        defaultHealth:number;
-        maxSpeed:number;
-        speed:number;
-        radius:number;
-    }
-    map: {
-        size:number;
-    }
-    msg: {
-        join:string;
-        mouseinput:string;
-        keyboardinput:string;
-        update:string;
-        chatmessage:string;
-        serverclosing:string;
-    }
-    game: {
-        version:string;
-        chatBubbleLifetime:number;
-    }
+        defaultHealth: 100,
+        maxSpeed: 5,
+        speed: 2.5,
+        radius: 32
+    },
     bodies: {
         barrel: {
-            radius:number
+            radius: 40
+        },
+        ground: {
+            radius: 100
         }
-        deployableWall: {
-            width:number;
-            height:number;
-        }
-    }
-    
-    constructor() {
-        this.player = {
-            defaultHealth: 100,
-            maxSpeed: 5,
-            speed: 2.5,
-            radius: 32
-        }
-        this.bodies = {
-            barrel: {
-                radius: 40
-            },
-            deployableWall: {
-                width: 64,
-                height: 16
-            }
-        }
-        this.map = {
-            size: 4000
-        }
-        this.msg = {
-            join: "joingame",
-            mouseinput: "mouseinputsend",
-            keyboardinput: "keyboardinputsend",
-            update: "gameupdate",
-            chatmessage: "chatmessage",
-            serverclosing: "servershutdown"
-        }
-        this.game = {
-            version: "pre-A6",
-            chatBubbleLifetime:5000
-        }
+    },
+    map: {
+        size: 4000
+    },
+    msg: {
+        join: "joingame",
+        mouseinput: "mouseinputsend",
+        keyboardinput: "keyboardinputsend",
+        update: "gameupdate",
+        chatmessage: "chatmessage",
+        serverclosing: "servershutdown"
+    },
+    game: {
+        version: "pre-A7",
+        chatBubbleLifetime:5000
     }
 }
 
-const constants:Constants = new Constants();
 export default constants;

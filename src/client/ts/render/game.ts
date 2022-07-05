@@ -8,7 +8,7 @@ import constants from "../../../shared/constants";
 import renderBackground from "./components/background";
 import renderPlayer from "./components/player";
 import renderBarrel from "./components/barrel";
-import renderDeployableWall from "./components/deployableWall";
+import renderPolygon from "./components/polygon";
 import renderChatbubble from "./components/chatbubble";
 
 import ChatBubble from "../../types/chatBubble";
@@ -38,8 +38,8 @@ export function render(ctx:CanvasRenderingContext2D, canvas:HTMLCanvasElement):v
             case "barrel":
                 renderBarrel(ctx, canvas, me, e);
                 break;
-            case "deployable_wall":
-                renderDeployableWall(ctx, canvas, me, e);
+            case "polygon":
+                renderPolygon(ctx, canvas, me, e);
                 break;
         }
     });
