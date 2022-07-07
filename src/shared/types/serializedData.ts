@@ -19,6 +19,10 @@ export interface Player extends Entity {
     health:number;
 }
 
+export interface Polygon extends Entity {
+    vertices:{x:number, y:number}[];
+}
+
 export interface World {
     time:number;
     me:Player;

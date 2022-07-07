@@ -31,18 +31,19 @@ export function render(ctx:CanvasRenderingContext2D, canvas:HTMLCanvasElement):v
     ctx.lineWidth = 1;
     ctx.strokeRect(canvas.width / 2 - me.position.x, canvas.height / 2 - me.position.y, constants.map.size, constants.map.size);
 
-    renderPlayer(ctx, canvas, me, me);
-    others.forEach((p) => {renderPlayer(ctx, canvas, me, p)});
     entities.forEach((e) => {
         switch(e.drawName) {
             case "barrel":
                 renderBarrel(ctx, canvas, me, e);
                 break;
             case "polygon":
-                renderPolygon(ctx, canvas, me, e);
+                renderPolygon(ctx, canvas, me, e as serialized.Polygon);
                 break;
         }
     });
+
+    renderPlayer(ctx, canvas, me, me);
+    others.forEach((p) => {renderPlayer(ctx, canvas, me, p)});
 
     for(let i in chatBubbles) renderChatbubble(ctx, canvas, me, chatBubbles[i]);
 }

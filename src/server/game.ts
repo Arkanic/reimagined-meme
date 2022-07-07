@@ -7,7 +7,7 @@ import Entity from "./entities/entity";
 import Player from "./entities/player";
 import Wall from "./entities/wall";
 import Barrel from "./entities/barrel";
-import Ground from "./entities/polygon";
+import Polygon from "./entities/polygon";
 import Vector2 from "./types/vector2";
 import * as Data from "../shared/types/inputObject";
 import * as Serialized from "../shared/types/serializedData";
@@ -59,7 +59,13 @@ class Game {
             this.addEntity(barrel);
         }
 
-        this.addEntity(new Ground(nanoid(), new Vector2(constants.map.size / 2, constants.map.size / 2)));
+        this.addEntity(new Polygon(nanoid(), new Vector2(constants.map.size / 2, constants.map.size / 2), [
+            {x: 0, y: 0},
+            {x: 100, y: 10},
+            {x: 90, y: 200},
+            {x: -50, y: 150},
+            
+        ]));
 
         this.then = Date.now();
         this.now = 0;

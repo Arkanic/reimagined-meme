@@ -8,9 +8,6 @@ const constants = {
     bodies: {
         barrel: {
             radius: 40
-        },
-        ground: {
-            radius: 100
         }
     },
     map: {
@@ -25,7 +22,7 @@ const constants = {
         serverclosing: "servershutdown"
     },
     game: {
-        version: "pre-A7",
+        version: "1",
         chatBubbleLifetime:5000
     }
 }

@@ -21,6 +21,13 @@ class Vector2 {
         this.x = a.x;
         this.y = a.y;
     }
+
+    serialize():{x:number, y:number} {
+        return {
+            x: this.x,
+            y: this.y
+        }
+    }
 }
 
 export default Vector2;
