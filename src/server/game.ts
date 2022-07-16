@@ -1,6 +1,6 @@
 import io from "socket.io";
 import striptags from "striptags";
-import {Engine, World, Composite, Bodies} from "matter-js";
+import {Engine, World, Composite, Bodies, Common} from "matter-js";
 import {nanoid} from "nanoid";
 
 import Entity from "./entities/entity";
@@ -13,6 +13,8 @@ import * as Data from "../shared/types/inputObject";
 import * as Serialized from "../shared/types/serializedData";
 
 import constants from "../shared/constants";
+
+Common.setDecomp(require("poly-decomp"));
 
 class Game {
     sockets:{[key:string]:io.Socket};
@@ -65,6 +67,13 @@ class Game {
             {x: 90, y: 200},
             {x: -50, y: 150},
             
+        ]));
+
+        this.addEntity(new Polygon(nanoid(), new Vector2(constants.map.size / 4, constants.map.size / 4), [
+            {x: 0, y: 0},
+            {x: 100, y: 100},
+            {x: 0, y: 50},
+            {x: -100, y: 100}
         ]));
 
         this.then = Date.now();
