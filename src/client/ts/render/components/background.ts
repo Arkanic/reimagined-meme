@@ -20,8 +20,8 @@ export default function renderBackground(ctx:CanvasRenderingContext2D, canvas:HT
         constants.map.size / 2
     );
 
-    backgroundGradient.addColorStop(0, "black");
-    backgroundGradient.addColorStop(1, "gray");
+    backgroundGradient.addColorStop(0, "#17202a");
+    backgroundGradient.addColorStop(1, "#34495e");
     
     ctx.fillStyle = backgroundGradient;
     ctx.fillRect(0, 0, canvas.width, canvas.height);

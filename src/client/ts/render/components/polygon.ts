@@ -4,6 +4,8 @@ import * as assets from "../../assets";
 
 import {quickDecomp} from "poly-decomp-es";
 
+let polygons:{[unit:string]:number[][][]} = {};
+
 function decomp(verts:Array<{x:number, y:number}>) {
     let arrVerts = [];
     for(let i in verts) {
@@ -17,7 +19,7 @@ function decomp(verts:Array<{x:number, y:number}>) {
 
 export default function renderPolygon(ctx:CanvasRenderingContext2D, canvas:HTMLCanvasElement, me:serialized.Player|null, entity:serialized.Polygon):void {
     const {x, y} = entity.position;
-    const {rotation, vertices} = entity;
+    const {rotation, vertices, id} = entity;
     const canvasX:number = canvas.width / 2 + x - me!.position.x;
     const canvasY:number = canvas.height / 2 + y - me!.position.y;
 
@@ -25,8 +27,15 @@ export default function renderPolygon(ctx:CanvasRenderingContext2D, canvas:HTMLC
     ctx.translate(canvasX, canvasY);
     ctx.rotate(rotation);
 
-    ctx.fillStyle = "green";
-    let shapes = decomp(vertices);
+    ctx.fillStyle = "#6e2c00";
+    let shapes;
+    if(polygons[id]) shapes = polygons[id];
+    else {
+        shapes = decomp(vertices);
+        polygons[id] = shapes;
+    }
+
+    // draw shape segments (decomposed to draw concave shapes)
     for(let i in shapes) {
         let shape = shapes[i];
 
@@ -39,6 +48,18 @@ export default function renderPolygon(ctx:CanvasRenderingContext2D, canvas:HTMLC
         ctx.closePath();
         ctx.fill();
     }
+
+    // draw outline of shape
+    ctx.strokeStyle = "#ba4a00";
+    ctx.lineWidth = 4;
+    ctx.beginPath();
+    ctx.moveTo(vertices[0].x, vertices[0].y)
+    for(let i = 1; i < vertices.length; i++) {
+        let vert = vertices[i];
+        ctx.lineTo(vert.x, vert.y);
+    }
+    ctx.closePath();
+    ctx.stroke();
 
     ctx.restore();
 
