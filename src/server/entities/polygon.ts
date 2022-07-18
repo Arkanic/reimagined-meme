@@ -9,7 +9,7 @@ function topLeftVert(verts:Array<{x:number, y:number}>):{x:number, y:number} {
     for(let i in verts) {
         let vert = verts[i];
 
-        if(vert.x < topLeft.x && vert.y < topLeft.y) topLeft = vert;
+        if((vert.x + vert.y) < (topLeft.x + topLeft.y)) topLeft = vert;
     }
 
     return topLeft;

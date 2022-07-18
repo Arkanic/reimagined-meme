@@ -54,12 +54,12 @@ class Game {
         );
         this.addEntity(leftWall);
 
-        for(let i = 0; i < 10; i++) {
+        /*for(let i = 0; i < 10; i++) {
             let position = new Vector2(Math.random() * constants.map.size, Math.random() * constants.map.size);
             let barrel = new Barrel(nanoid(), position);
 
             this.addEntity(barrel);
-        }
+        }*/
 
         this.addEntity(new Polygon(nanoid(), new Vector2(constants.map.size / 2, constants.map.size / 2), [
             {x: 0, y: 0},
@@ -74,6 +74,18 @@ class Game {
             {x: 100, y: 100},
             {x: 0, y: 50},
             {x: -100, y: 100}
+        ]));
+
+        this.addEntity(new Polygon(nanoid(), new Vector2(500, 1000), [
+            {x: 174, y: 25},
+            {x: 250, y: 138},
+            {x: 360, y: 196},
+            {x: 366, y: 299},
+            {x: 233, y: 329},
+            {x: 161, y: 239},
+            {x: 41, y: 307},
+            {x: 86, y: 136},
+            {x: 92, y: 51},
         ]));
 
         this.then = Date.now();
