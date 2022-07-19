@@ -6,13 +6,23 @@ import * as Serialized from "../../shared/types/serializedData";
 
 function topLeftVert(verts:Array<{x:number, y:number}>):{x:number, y:number} {
     let topLeft = {x:Infinity, y:Infinity};
+    let smallestY = Infinity;
     for(let i in verts) {
         let vert = verts[i];
 
-        if((vert.x + vert.y) < (topLeft.x + topLeft.y)) topLeft = vert;
+        if(vert.y < smallestY) smallestY = vert.y;
+
     }
 
-    return topLeft;
+    let smallestYs = verts.filter((x) => x.y === smallestY);
+    if(smallestYs.length === 1) return smallestYs[0];
+
+    let smallestX = Infinity;
+    for(let i in smallestYs) {
+        if(smallestYs[i].x < smallestX) smallestX = smallestYs[i].x;
+    }
+
+    return smallestYs.filter((x) => x.x === smallestX)[0];
 }
 
 class Polygon extends Entity {

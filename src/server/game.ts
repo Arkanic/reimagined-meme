@@ -88,6 +88,28 @@ class Game {
             {x: 92, y: 51},
         ]));
 
+        this.addEntity(new Polygon(nanoid(), new Vector2(constants.map.size / 2, constants.map.size / 2 + 1000), [
+            {x: 30, y: 70},
+            {x: 140, y: 40},
+            {x: 240, y: 240},
+            {x: 160, y: 540},
+            {x: 150, y: 770},
+            {x: 220, y: 890},
+            {x: 400, y: 760},
+            {x: 360, y: 590},
+            {x: 440, y: 300},
+            {x: 360, y: 60},
+            {x: 500, y: 30},
+            {x: 560, y: 350},
+            {x: 480, y: 710},
+            {x: 520, y: 960},
+            {x: 360, y: 890},
+            {x: 210, y: 970},
+            {x: 50, y: 900},
+            {x: 50, y: 620},
+            {x: 20, y: 380},
+        ]));
+
         this.then = Date.now();
         this.now = 0;
 
