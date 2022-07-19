@@ -52,8 +52,13 @@ export const updateMouseInput = throttle(20, (state:Data.MouseInput) => {
     socket.emit(constants.msg.mouseinput, {state});
 });
 
+let previousKeyboardState = {};
 export const updateKeyboardInput = (state:Data.KeyboardInput) => {
-    socket.emit(constants.msg.keyboardinput, {state});
+    // if a key has actually changed
+    if(previousKeyboardState != JSON.stringify(state)) {
+        socket.emit(constants.msg.keyboardinput, {state});
+        previousKeyboardState = JSON.stringify(state);
+    }
 }
 
 export const sendMessage = throttle(20, (data:Data.Message) => {

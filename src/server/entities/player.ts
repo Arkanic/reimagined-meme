@@ -12,6 +12,7 @@ class Player extends Entity {
     health:number;
     screen:Vector2;
     clicking:boolean;
+    keys:Data.KeyboardInput
 
     constructor(id:string, position:Vector2, screen:Vector2, username:string) {
         super(id, position, constants.player.maxSpeed, "player");
@@ -22,10 +23,29 @@ class Player extends Entity {
         this.health = constants.player.defaultHealth;
 
         this.clicking = false;
+        this.keys = {
+            w: false,
+            a: false,
+            s: false,
+            d: false
+        }
 
         this.body = Bodies.circle(position.x, position.y, constants.player.radius, {
             inertia: Infinity
         });
+    }
+
+    update() {
+        super.update();
+
+        let delta = new Vector2(0, 0);
+        let speed = constants.player.speed;
+        if(this.keys.w) delta.y -= speed;
+        if(this.keys.a) delta.x -= speed;
+        if(this.keys.s) delta.y += speed;
+        if(this.keys.d) delta.x += speed;
+
+        this.modifyVelocity(delta);
     }
 
     /**
@@ -45,14 +65,7 @@ class Player extends Entity {
      * @param state The keyboard state
      */
     translateKeyboardInput(state:Data.KeyboardInput):void {
-        let delta = new Vector2(0, 0);
-        let speed = constants.player.speed;
-        if(state.w) delta.y -= speed;
-        if(state.a) delta.x -= speed;
-        if(state.s) delta.y += speed;
-        if(state.d) delta.x += speed;
-
-        super.modifyVelocity(delta);
+        this.keys = state;
     }
 
     serialize():Serialized.Player {

@@ -1,7 +1,6 @@
 import {nanoid} from "nanoid";
 
 import * as state from "../state";
-import * as assets from "../assets";
 import * as serialized from "../../../shared/types/serializedData";
 import constants from "../../../shared/constants";
 

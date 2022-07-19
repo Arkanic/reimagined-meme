@@ -61,6 +61,9 @@ export default function renderPolygon(ctx:CanvasRenderingContext2D, canvas:HTMLC
     ctx.closePath();
     ctx.stroke();
 
+    ctx.fillStyle = "red";
+    ctx.fillRect(-5, -5, 10, 10);
+
     ctx.restore();
 
     /*
