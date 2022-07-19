@@ -2,6 +2,10 @@ import * as serialized from "../../shared/types/serializedData";
 
 const renderdelay:number = 1000/60;
 
+let initData:serialized.InitData = {
+    staticEntities: []
+};
+
 const gameUpdates:Array<serialized.World> = [];
 let gameStart:number = 0;
 let firstServerTimestamp:number = 0;
@@ -63,6 +67,14 @@ function getBaseUpdate():number {
  */
 function padRatio(ratio:number):number {
     return Math.max(ratio + 0.25, 1);
+}
+
+export function processInitData(data:serialized.InitData) {
+    initData = data;
+}
+
+export function getInitData():serialized.InitData {
+    return initData;
 }
 
 /**

@@ -1,7 +1,6 @@
 import Matter, {Bodies} from "matter-js";
 import Entity from "./entity";
 import Vector2 from "../types/vector2";
-import constants from "../../shared/constants";
 import * as Serialized from "../../shared/types/serializedData";
 
 function topLeftVert(verts:Array<{x:number, y:number}>):{x:number, y:number} {

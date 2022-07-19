@@ -23,6 +23,7 @@ let chatBubbles:{[unit:string]:ChatBubble} = {};
  */
 export function render(ctx:CanvasRenderingContext2D, canvas:HTMLCanvasElement):void {
     const {me, others, entities} = state.getCurrentState();
+    const {staticEntities} = state.getInitData();
     if(!me) return; // if dead
 
     renderBackground(ctx, canvas, me.position.x, me.position.y);
@@ -30,6 +31,14 @@ export function render(ctx:CanvasRenderingContext2D, canvas:HTMLCanvasElement):v
     ctx.strokeStyle = "black";
     ctx.lineWidth = 1;
     ctx.strokeRect(canvas.width / 2 - me.position.x, canvas.height / 2 - me.position.y, constants.map.size, constants.map.size);
+
+    staticEntities.forEach((e) => {
+        switch(e.drawName) {
+            case "polygon":
+                renderPolygon(ctx, canvas, me, e as serialized.Polygon);
+                break;
+        }
+    });
 
     entities.forEach((e) => {
         switch(e.drawName) {
@@ -42,6 +51,7 @@ export function render(ctx:CanvasRenderingContext2D, canvas:HTMLCanvasElement):v
         }
     });
 
+    
     renderPlayer(ctx, canvas, me, me);
     others.forEach((p) => {renderPlayer(ctx, canvas, me, p)});
 

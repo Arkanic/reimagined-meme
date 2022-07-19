@@ -1,4 +1,4 @@
-import {processGameUpdate, getCurrentState} from "./state";
+import {processInitData, processGameUpdate, getCurrentState} from "./state";
 import * as serialized from "../../shared/types/serializedData";
 import * as chatbox from "./ui/chatbox";
 import * as game from "./render/game";
@@ -11,6 +11,15 @@ import * as render from "./render";
  */
 export function handleGameUpdate(update:serialized.World):void {
     processGameUpdate(update);
+}
+
+/**
+ * Handle init data from the server
+ * 
+ * @param data InitData
+ */
+export function handleInitData(data:serialized.InitData):void {
+    processInitData(data);
 }
 
 /**

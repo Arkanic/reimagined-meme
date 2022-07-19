@@ -34,3 +34,7 @@ export interface ChatMessage {
     message:string;
     sender:string;
 }
+
+export interface InitData {
+    staticEntities:Array<Entity>;
+}

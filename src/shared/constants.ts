@@ -19,7 +19,8 @@ const constants = {
         keyboardinput: "keyboardinputsend",
         update: "gameupdate",
         chatmessage: "chatmessage",
-        serverclosing: "servershutdown"
+        serverclosing: "servershutdown",
+        initdata: "initdata"
     },
     game: {
         version: "1",

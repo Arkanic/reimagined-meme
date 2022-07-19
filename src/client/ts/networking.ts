@@ -1,7 +1,7 @@
 import io from "socket.io-client";
 import {throttle} from "throttle-debounce";
 import constants from "../../shared/constants";
-import {handleGameUpdate, handleChatMessage} from "./handler";
+import {handleGameUpdate, handleChatMessage, handleInitData} from "./handler";
 import Logger from "./logger";
 
 import * as Data from "../../shared/types/inputObject";
@@ -27,8 +27,9 @@ export function connect() {
         logger.log("Started handlers");
         socket.on(constants.msg.update, handleGameUpdate);
         socket.on(constants.msg.chatmessage, handleChatMessage);
+        socket.on(constants.msg.initdata, handleInitData)
         socket.on(constants.msg.serverclosing, function (data:any) {
-            disconnectMessage = data.message
+            disconnectMessage = data.message;
             document.getElementById("disconnect-message")!.innerHTML = data.message;
         });
 

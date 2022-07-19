@@ -17,9 +17,10 @@ import constants from "../shared/constants";
 Common.setDecomp(require("poly-decomp"));
 
 class Game {
-    sockets:{[key:string]:io.Socket};
-    players:{[key:string]:Player};
-    entities:{[key:string]:Entity};
+    sockets:{[key:string]:io.Socket}; // websockets (actual clients connected)
+    players:{[key:string]:Player}; // player objects (only exist when the player is not dead/out of game)
+    entities:{[key:string]:Entity}; // physical, moving entities throughout the game
+    staticEntities:{[key:string]:Entity}; // static entities that should only need to be downloaded once
 
     engine:Engine;
     then:number;
@@ -29,6 +30,7 @@ class Game {
         this.sockets = {};
         this.players = {};
         this.entities = {};
+        this.staticEntities = {};
 
         this.engine = Engine.create();
         this.engine.world.gravity.y = 0;
@@ -61,7 +63,7 @@ class Game {
             this.addEntity(barrel);
         }*/
 
-        this.addEntity(new Polygon(nanoid(), new Vector2(constants.map.size / 2, constants.map.size / 2), [
+        this.addStaticEntity(new Polygon(nanoid(), new Vector2(constants.map.size / 2, constants.map.size / 2), [
             {x: 0, y: 0},
             {x: 100, y: 10},
             {x: 90, y: 200},
@@ -69,14 +71,14 @@ class Game {
             
         ]));
 
-        this.addEntity(new Polygon(nanoid(), new Vector2(constants.map.size / 4, constants.map.size / 4), [
+        this.addStaticEntity(new Polygon(nanoid(), new Vector2(constants.map.size / 4, constants.map.size / 4), [
             {x: 0, y: 0},
             {x: 100, y: 100},
             {x: 0, y: 50},
             {x: -100, y: 100}
         ]));
 
-        this.addEntity(new Polygon(nanoid(), new Vector2(500, 1000), [
+        this.addStaticEntity(new Polygon(nanoid(), new Vector2(500, 1000), [
             {x: 174, y: 25},
             {x: 250, y: 138},
             {x: 360, y: 196},
@@ -88,7 +90,7 @@ class Game {
             {x: 92, y: 51},
         ]));
 
-        this.addEntity(new Polygon(nanoid(), new Vector2(constants.map.size / 2, constants.map.size / 2 + 1000), [
+        this.addStaticEntity(new Polygon(nanoid(), new Vector2(constants.map.size / 2, constants.map.size / 2 + 1000), [
             {x: 30, y: 70},
             {x: 140, y: 40},
             {x: 240, y: 240},
@@ -139,6 +141,21 @@ class Game {
     }
 
     /**
+     * Add a static entity to the game
+     * Static entities are only downloaded once, when the game starts. They are constant and should not change in any way.
+     * All addStaticEntity calls should be run *before* any users have the potential to join the game.
+     * 
+     * @param entity The entity to be added
+     * 
+     * @throws A generic error if the matter.js body does not have .isStatic set to true (this would mean that it has the potential to be moved by the physics engine, causing undefined behaviour)
+     */
+    addStaticEntity(entity:Entity):void {
+        if(!entity.body.isStatic) throw new Error("Tried to add a static entity, that infact was not static");
+        this.staticEntities[entity.id] = entity;
+        World.addBody(this.engine.world, entity.body);
+    }
+
+    /**
      * Adds a player to the game object
      * 
      * @param socket The socket.io object of the player
@@ -152,6 +169,8 @@ class Game {
         this.players[socket.id] = new Player(socket.id, position, screen, striptags(data.username));
 
         World.add(this.engine.world, [this.players[socket.id].body]);
+
+        this.sendInitData(socket);
     }
 
     /**
@@ -225,6 +244,18 @@ class Game {
         });
 
         this.then = this.now;
+    }
+
+    sendInitData(socket:io.Socket) {
+        socket.emit(constants.msg.initdata, this.createInitData());
+    }
+
+    createInitData():Serialized.InitData {
+        const staticEntities:Array<Entity> = Object.values<Entity>(this.staticEntities);
+
+        return {
+            staticEntities: staticEntities.map(e => e.serialize())
+        }
     }
 
     createUpdate(player:Player):Serialized.World {
