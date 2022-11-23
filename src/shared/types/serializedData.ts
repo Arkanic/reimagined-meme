@@ -1,3 +1,5 @@
+import {Skim} from "../utils/skim";
+
 export interface Entity {
     id:string;
     
@@ -28,6 +30,13 @@ export interface World {
     me:Player;
     others:Array<Player>;
     entities:Array<Entity>;
+}
+
+export interface WorldSkim {
+    time:number;
+    me:Player;
+    others:Skim<Player>;
+    entities:Skim<Entity>;
 }
 
 export interface ChatMessage {

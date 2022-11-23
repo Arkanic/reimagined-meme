@@ -3,6 +3,8 @@ import striptags from "striptags";
 import {Engine, World, Composite, Bodies, Common} from "matter-js";
 import {nanoid} from "nanoid";
 
+import Socket from "./socket";
+
 import Entity from "./entities/entity";
 import Player from "./entities/player";
 import Wall from "./entities/wall";
@@ -17,7 +19,7 @@ import constants from "../shared/constants";
 Common.setDecomp(require("poly-decomp"));
 
 class Game {
-    sockets:{[key:string]:io.Socket}; // websockets (actual clients connected)
+    sockets:{[key:string]:Socket}; // websockets (actual clients connected)
     players:{[key:string]:Player}; // player objects (only exist when the player is not dead/out of game)
     entities:{[key:string]:Entity}; // physical, moving entities throughout the game
     staticEntities:{[key:string]:Entity}; // static entities that should only need to be downloaded once
@@ -162,7 +164,7 @@ class Game {
      * @param data The join data given by the client
      */
     addPlayer(socket:io.Socket, data:Data.Join):void {
-        this.sockets[socket.id] = socket;
+        this.sockets[socket.id] = new Socket(socket);
 
         const position:Vector2 = new Vector2(Math.floor(constants.map.size * (0.25 + Math.random() * 0.5)), Math.floor(constants.map.size * (0.25 + Math.random() * 0.5)));
         const screen:Vector2 = new Vector2(data.screenWidth, data.screenHeight);
@@ -218,7 +220,7 @@ class Game {
         console.log(`[${player.username}]: ${message}`);
 
         Object.keys(this.sockets).forEach(id => {
-            const socket = this.sockets[id];
+            const socket = this.sockets[id].socket;
             socket.emit(constants.msg.chatmessage, {message:striptags(message).slice(0, 300), sender:sender.id});
         });
     }
@@ -235,12 +237,12 @@ class Game {
         Engine.update(this.engine, dt);
 
         Object.keys(this.sockets).forEach(id => {
-            const socket = this.sockets[id];
+            const socket = this.sockets[id].socket;
             const player = this.players[id];
 
             player.update();
 
-            socket.emit(constants.msg.update, this.createUpdate(player));
+            socket.emit(constants.msg.update, this.createUpdate(player, this.sockets[id]));
         });
 
         this.then = this.now;
@@ -258,7 +260,7 @@ class Game {
         }
     }
 
-    createUpdate(player:Player):Serialized.World {
+    createUpdate(player:Player, socket:Socket):Serialized.WorldSkim {
         const nearbyPlayers:Array<Player> = Object.values<Player>(this.players).filter(
             p => p !== player && p.distanceTo(player) <= constants.game.maxRenderDistance
         );
@@ -267,12 +269,16 @@ class Game {
             e => e.distanceTo(player) <= constants.game.maxRenderDistance
         );
 
-        return {
+        let update = {
             time: Date.now(),
             me: player.serialize(),
             others: nearbyPlayers.map(p => p.serialize()),
             entities: nearbyEntities.map(e => e.serialize())
         }
+
+        let skim = socket.getSkim(update);
+
+        return skim;
     }
 }
 export default Game;

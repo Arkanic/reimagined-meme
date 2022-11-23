@@ -3,14 +3,37 @@ import * as serialized from "../../shared/types/serializedData";
 import * as chatbox from "./ui/chatbox";
 import * as game from "./render/game";
 import * as render from "./render";
+import * as skimmer from "../../shared/utils/skim";
 
 /**
  * Handle a new game update from the server
  * 
  * @param update The update
  */
-export function handleGameUpdate(update:serialized.World):void {
-    processGameUpdate(update);
+
+let world:{[unit:string]:any} = {
+    time:0,
+    me:null,
+    others:[],
+    entities:[]
+};
+
+function fattenWorldSkim(update:serialized.WorldSkim, then:{[unit:string]:any}):serialized.World {
+    let copied = Object.assign({}, then);
+    copied.others = skimmer.fattenSkim(update.others, then.others);
+    copied.entities = skimmer.fattenSkim(update.entities, then.entities);
+    copied.time = update.time;
+    copied.me = update.me;
+
+    return copied as unknown as any as serialized.World;
+}
+
+export function handleGameUpdate(update:serialized.WorldSkim):void {
+    let fullWorld = fattenWorldSkim(update, world);
+
+    if(fullWorld.me) processGameUpdate(fullWorld);
+
+    world = fullWorld;
 }
 
 /**

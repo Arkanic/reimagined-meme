@@ -29,10 +29,12 @@ export function skimArray<T extends Entity>(now:Array<T>, then:Array<T>):Skim<T>
     let modifiedIds = persistsIds.filter(x => !(_.isEqual(nowObj[x], thenObj[x])));
     let modified = modifiedIds.map(i => nowObj[i]);
 
-    return {added, removed, modified};
+    let skim = {added, removed, modified};
+
+    return skim;
 }
 
-function fattenSkim<T extends Entity>(skim:Skim<T>, then:Array<T>):Array<T> {
+export function fattenSkim<T extends Entity>(skim:Skim<T>, then:Array<T>):Array<T> {
     let copied = [...then];
 
     for(let i in skim.removed) {
