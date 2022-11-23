@@ -24,7 +24,8 @@ const constants = {
     },
     game: {
         version: "1",
-        chatBubbleLifetime:5000
+        chatBubbleLifetime:5000,
+        maxRenderDistance: 1000
     }
 }
 

@@ -260,11 +260,11 @@ class Game {
 
     createUpdate(player:Player):Serialized.World {
         const nearbyPlayers:Array<Player> = Object.values<Player>(this.players).filter(
-            p => p !== player && p.distanceTo(player) <= constants.map.size / 2
+            p => p !== player && p.distanceTo(player) <= constants.game.maxRenderDistance
         );
 
         const nearbyEntities:Array<Entity> = Object.values<Entity>(this.entities).filter(
-            e => e.distanceTo(player) <= constants.map.size / 2
+            e => e.distanceTo(player) <= constants.game.maxRenderDistance
         );
 
         return {
