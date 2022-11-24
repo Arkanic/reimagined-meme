@@ -29,7 +29,7 @@
     "@types/lodash": "^4.14.189",
     "@types/matter-js": "^0.17.5",
     "@types/node-sass": "^4.11.1",
-    "@types/socket.io": "^2.1.13",
+    "@types/socket.io": "^3.0.2",
     "@types/socket.io-client": "^1.4.35",
     "@types/striptags": "^3.1.1",
     "@types/throttle-debounce": "^2.1.0",
