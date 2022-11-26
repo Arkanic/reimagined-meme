@@ -33,7 +33,8 @@ export function render(ctx:CanvasRenderingContext2D, canvas:HTMLCanvasElement):v
 
     staticEntities.forEach((e) => {
         switch(e.drawName) {
-            case "polygon":
+            case "ground":
+            case "dirt":
                 renderPolygon(ctx, canvas, me, e as serialized.Polygon);
                 break;
         }
@@ -41,6 +42,10 @@ export function render(ctx:CanvasRenderingContext2D, canvas:HTMLCanvasElement):v
 
     entities.forEach((e) => {
         switch(e.drawName) {
+            case "dirt":
+            case "ground":
+                renderPolygon(ctx, canvas, me, e as serialized.Polygon);
+                break;
             case "barrel":
                 renderBarrel(ctx, canvas, me, e);
                 break;

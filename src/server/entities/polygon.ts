@@ -27,8 +27,8 @@ function topLeftVert(verts:Array<{x:number, y:number}>):{x:number, y:number} {
 class Polygon extends Entity {
     localVertices:{x:number, y:number}[]
 
-    constructor(id:string, position:Vector2, vertices:{x:number, y:number}[]) {
-        super(id, position, 0, "polygon");
+    constructor(id:string, position:Vector2, vertices:{x:number, y:number}[], name:string) {
+        super(id, position, 0, name);
         this.localVertices = vertices;
 
         this.body = Bodies.fromVertices(position.x, position.y, this.localVertices as unknown as Matter.Vector[][], {
