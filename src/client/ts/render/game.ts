@@ -42,7 +42,6 @@ export function render(ctx:CanvasRenderingContext2D, canvas:HTMLCanvasElement):v
 
     entities.forEach((e) => {
         switch(e.drawName) {
-            case "dirt":
             case "ground":
                 renderPolygon(ctx, canvas, me, e as serialized.Polygon);
                 break;
@@ -52,6 +51,14 @@ export function render(ctx:CanvasRenderingContext2D, canvas:HTMLCanvasElement):v
             case "polygon":
                 renderPolygon(ctx, canvas, me, e as serialized.Polygon);
                 break;
+        }
+    });
+
+    // render dirt ontop of ground
+    entities.forEach((e) => {
+        switch(e.drawName) {
+            case "dirt":
+                renderPolygon(ctx, canvas, me, e as serialized.Polygon);
         }
     });
 
