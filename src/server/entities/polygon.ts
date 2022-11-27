@@ -27,9 +27,12 @@ function topLeftVert(verts:Array<{x:number, y:number}>):{x:number, y:number} {
 
 class Polygon extends Entity {
     localVertices:{x:number, y:number}[]
+    broken:boolean
 
     constructor(id:string, position:Vector2, vertices:{x:number, y:number}[], name:string) {
         super(id, position, 0, name);
+
+        this.broken = false;
         
         let tVertices = vertices.map(x => [x.x, x.y]);
         makeCCW(tVertices as any);
@@ -41,6 +44,12 @@ class Polygon extends Entity {
         this.body = Bodies.fromVertices(position.x, position.y, this.localVertices as unknown as Matter.Vector[][], {
             isStatic: true
         });
+
+        try {
+            this.body.isStatic
+        } catch(err) {
+            this.broken = true;
+        }
     }
 
     sandlVertices():Array<{x:number, y:number}> {

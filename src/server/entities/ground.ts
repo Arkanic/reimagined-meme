@@ -5,6 +5,7 @@ import Matter, {Bodies} from "matter-js";
 class Ground extends Polygon {
     constructor(id:string, position:Vector2, vertices:{x:number, y:number}[]) {
         super(id, position, vertices, "ground");
+        if(!this.broken) this.body.isSensor = true;
     }
 }
 
