@@ -62,9 +62,10 @@ class Game {
         this.addEntity(leftWall);
 
         let mapEntities = getMap(constants.map.generation);
-        console.log(mapEntities[100].body);
-        console.log(mapEntities[100].body.isStatic)
-        this.addEntity(mapEntities[100]);
+        for(let i = 0; i < mapEntities.length; i++) {
+            console.log(mapEntities[i].body.isStatic || "broken");
+            this.addEntity(mapEntities[i]);
+        }
 
         this.then = Date.now();
         this.now = 0;

@@ -2,6 +2,7 @@ import Matter, {Bodies} from "matter-js";
 import Entity from "./entity";
 import Vector2 from "../types/vector2";
 import * as Serialized from "../../shared/types/serializedData";
+import {makeCCW} from "poly-decomp-es";
 
 function topLeftVert(verts:Array<{x:number, y:number}>):{x:number, y:number} {
     let topLeft = {x:Infinity, y:Infinity};
@@ -29,7 +30,13 @@ class Polygon extends Entity {
 
     constructor(id:string, position:Vector2, vertices:{x:number, y:number}[], name:string) {
         super(id, position, 0, name);
-        this.localVertices = vertices;
+        
+        let tVertices = vertices.map(x => [x.x, x.y]);
+        makeCCW(tVertices as any);
+        this.localVertices = tVertices.map(x => {
+            return {x: x[0], y: x[1]}
+        });
+
 
         this.body = Bodies.fromVertices(position.x, position.y, this.localVertices as unknown as Matter.Vector[][], {
             isStatic: true

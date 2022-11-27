@@ -2,17 +2,18 @@ import constants from "../../../../shared/constants";
 import * as serialized from "../../../../shared/types/serializedData";
 import * as assets from "../../assets";
 
-import {quickDecomp} from "poly-decomp-es";
+import {quickDecomp, makeCCW} from "poly-decomp-es";
 
 let polygons:{[unit:string]:number[][][]} = {};
 
 function decomp(verts:Array<{x:number, y:number}>) {
-    let arrVerts = [];
+    let arrVerts:Array<Array<number>> = [];
     for(let i in verts) {
         let vert = verts[i];
         arrVerts.push([vert.x, vert.y]);
     }
 
+    makeCCW(arrVerts as any);
     return quickDecomp(arrVerts as any);
 }
 

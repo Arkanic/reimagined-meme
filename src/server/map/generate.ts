@@ -65,5 +65,5 @@ export function generateMap(config:MapConfig):Array<Array<Array<Array<number>>>>
         }
     }
 
-    return polygons;
+    return polygons.filter(polygon => polygon.length > 4);
 }
