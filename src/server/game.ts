@@ -63,8 +63,13 @@ class Game {
 
         let mapEntities = getMap(constants.map.generation);
         for(let i = 0; i < mapEntities.length; i++) {
-            console.log(mapEntities[i].body.isStatic || "broken");
-            this.addEntity(mapEntities[i]);
+            let success = true;
+            try {
+                mapEntities[i].body.isStatic;
+            } catch(err) {
+                success = false;
+            }
+            if(success) this.addEntity(mapEntities[i]);
         }
 
         this.then = Date.now();

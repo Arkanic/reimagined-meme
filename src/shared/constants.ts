@@ -15,7 +15,7 @@ const constants = {
         generation: {
             size: 200,
             scale: 0.05,
-            tileSize: 10,
+            tileSize: 20,
             concavity: 2,
             steps: [80, 110]
         }
@@ -32,7 +32,7 @@ const constants = {
     game: {
         version: "1",
         chatBubbleLifetime: 5000,
-        maxRenderDistance: 1000
+        maxRenderDistance: 2000
     }
 }
 
