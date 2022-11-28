@@ -33,7 +33,7 @@
     "@types/socket.io-client": "^1.4.35",
     "@types/striptags": "^3.1.1",
     "@types/throttle-debounce": "^2.1.0",
-    "@types/webpack": "^4.41.26",
+    "@types/webpack": "^5.28.0",
     "@types/webpack-env": "^1.18.0",
     "clean-webpack-plugin": "^3.0.0",
     "copy-webpack-plugin": "^8.0.0",
@@ -61,7 +61,7 @@
     "ts-json-schema-generator": "^0.95.0",
     "ts-loader": "^9.4.1",
     "typescript": "^4.1.5",
-    "webpack": "^5.23.0"
+    "webpack": "^5.75.0"
   },
   "devDependencies": {
     "webpack-cli": "^4.5.0"
