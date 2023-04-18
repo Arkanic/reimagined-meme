@@ -27,29 +27,27 @@ export function render(ctx:CanvasRenderingContext2D, canvas:HTMLCanvasElement):v
 
     renderBackground(ctx, canvas, me.position.x, me.position.y);
 
-    ctx.strokeStyle = "black";
-    ctx.lineWidth = 1;
-    ctx.strokeRect(canvas.width / 2 - me.position.x, canvas.height / 2 - me.position.y, constants.map.size, constants.map.size);
-
-    staticEntities.forEach((e) => {
+    /*staticEntities.forEach((e) => {
         switch(e.drawName) {
             case "ground":
+                renderPolygon(ctx, canvas, me, e as serialized.Polygon, "ground");
+                break;
             case "dirt":
-                renderPolygon(ctx, canvas, me, e as serialized.Polygon);
+                renderPolygon(ctx, canvas, me, e as serialized.Polygon, "dirt");
                 break;
         }
-    });
+    });*/
 
     entities.forEach((e) => {
         switch(e.drawName) {
             case "ground":
-                renderPolygon(ctx, canvas, me, e as serialized.Polygon);
+                renderPolygon(ctx, canvas, me, e as serialized.Polygon, "ground");
                 break;
             case "barrel":
                 renderBarrel(ctx, canvas, me, e);
                 break;
             case "polygon":
-                renderPolygon(ctx, canvas, me, e as serialized.Polygon);
+                renderPolygon(ctx, canvas, me, e as serialized.Polygon, "polygon");
                 break;
         }
     });
@@ -58,13 +56,17 @@ export function render(ctx:CanvasRenderingContext2D, canvas:HTMLCanvasElement):v
     entities.forEach((e) => {
         switch(e.drawName) {
             case "dirt":
-                renderPolygon(ctx, canvas, me, e as serialized.Polygon);
+                renderPolygon(ctx, canvas, me, e as serialized.Polygon, "dirt");
         }
     });
 
     
     renderPlayer(ctx, canvas, me, me);
     others.forEach((p) => {renderPlayer(ctx, canvas, me, p)});
+
+    ctx.strokeStyle = "black";
+    ctx.lineWidth = 1;
+    ctx.strokeRect(canvas.width / 2 - me.position.x, canvas.height / 2 - me.position.y, constants.map.size, constants.map.size);
 
     for(let i in chatBubbles) renderChatbubble(ctx, canvas, me, chatBubbles[i]);
 }
