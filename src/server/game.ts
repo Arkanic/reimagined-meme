@@ -9,10 +9,13 @@ import Entity from "./entities/entity";
 import Player from "./entities/player";
 import Wall from "./entities/wall";
 import Barrel from "./entities/barrel";
-import Polygon from "./entities/polygon";
+import Dirt from "./entities/dirt";
+
 import Vector2 from "./types/vector2";
 import * as Data from "../shared/types/inputObject";
 import * as Serialized from "../shared/types/serializedData";
+
+import {getMap} from "./map/map";
 
 import constants from "../shared/constants";
 
@@ -58,61 +61,16 @@ class Game {
         );
         this.addEntity(leftWall);
 
-        /*for(let i = 0; i < 10; i++) {
-            let position = new Vector2(Math.random() * constants.map.size, Math.random() * constants.map.size);
-            let barrel = new Barrel(nanoid(), position);
-
-            this.addEntity(barrel);
-        }*/
-
-        this.addStaticEntity(new Polygon(nanoid(), new Vector2(constants.map.size / 2, constants.map.size / 2), [
-            {x: 0, y: 0},
-            {x: 100, y: 10},
-            {x: 90, y: 200},
-            {x: -50, y: 150},
-            
-        ]));
-
-        this.addStaticEntity(new Polygon(nanoid(), new Vector2(constants.map.size / 4, constants.map.size / 4), [
-            {x: 0, y: 0},
-            {x: 100, y: 100},
-            {x: 0, y: 50},
-            {x: -100, y: 100}
-        ]));
-
-        this.addStaticEntity(new Polygon(nanoid(), new Vector2(500, 1000), [
-            {x: 174, y: 25},
-            {x: 250, y: 138},
-            {x: 360, y: 196},
-            {x: 366, y: 299},
-            {x: 233, y: 329},
-            {x: 161, y: 239},
-            {x: 41, y: 307},
-            {x: 86, y: 136},
-            {x: 92, y: 51},
-        ]));
-
-        this.addStaticEntity(new Polygon(nanoid(), new Vector2(constants.map.size / 2, constants.map.size / 2 + 1000), [
-            {x: 30, y: 70},
-            {x: 140, y: 40},
-            {x: 240, y: 240},
-            {x: 160, y: 540},
-            {x: 150, y: 770},
-            {x: 220, y: 890},
-            {x: 400, y: 760},
-            {x: 360, y: 590},
-            {x: 440, y: 300},
-            {x: 360, y: 60},
-            {x: 500, y: 30},
-            {x: 560, y: 350},
-            {x: 480, y: 710},
-            {x: 520, y: 960},
-            {x: 360, y: 890},
-            {x: 210, y: 970},
-            {x: 50, y: 900},
-            {x: 50, y: 620},
-            {x: 20, y: 380},
-        ]));
+        let mapEntities = getMap(constants.map.generation);
+        for(let i = 0; i < mapEntities.length; i++) {
+            let success = true;
+            try {
+                mapEntities[i].body.isStatic;
+            } catch(err) {
+                success = false;
+            }
+            if(success) this.addEntity(mapEntities[i]);
+        }
 
         this.then = Date.now();
         this.now = 0;

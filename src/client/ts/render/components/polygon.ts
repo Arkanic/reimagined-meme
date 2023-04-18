@@ -2,22 +2,38 @@ import constants from "../../../../shared/constants";
 import * as serialized from "../../../../shared/types/serializedData";
 import * as assets from "../../assets";
 
-import {quickDecomp} from "poly-decomp-es";
+import {quickDecomp, makeCCW} from "poly-decomp-es";
+
+const colours:{[unit:string]:{fill:string, border:string}} = {
+    ground: {
+        fill: "#2b1607",
+        border: "#4f2b0c"
+    },
+    dirt: {
+        fill: "#6e2c00",
+        border: "#ba4a00",
+    },
+    polygon: {
+        fill: "#cccccc",
+        border: "#eeeeee"
+    }
+}
 
 let polygons:{[unit:string]:number[][][]} = {};
 
 function decomp(verts:Array<{x:number, y:number}>) {
-    let arrVerts = [];
+    let arrVerts:Array<Array<number>> = [];
     for(let i in verts) {
         let vert = verts[i];
         arrVerts.push([vert.x, vert.y]);
     }
 
+    makeCCW(arrVerts as any);
     return quickDecomp(arrVerts as any);
 }
 
 
-export default function renderPolygon(ctx:CanvasRenderingContext2D, canvas:HTMLCanvasElement, me:serialized.Player|null, entity:serialized.Polygon):void {
+export default function renderPolygon(ctx:CanvasRenderingContext2D, canvas:HTMLCanvasElement, me:serialized.Player|null, entity:serialized.Polygon, type:string):void {
     const {x, y} = entity.position;
     const {rotation, vertices, id} = entity;
     const canvasX:number = canvas.width / 2 + x - me!.position.x;
@@ -27,7 +43,7 @@ export default function renderPolygon(ctx:CanvasRenderingContext2D, canvas:HTMLC
     ctx.translate(canvasX, canvasY);
     ctx.rotate(rotation);
 
-    ctx.fillStyle = "#6e2c00";
+    ctx.fillStyle = colours[type].fill;
     let shapes;
     if(polygons[id]) shapes = polygons[id];
     else {
@@ -50,7 +66,7 @@ export default function renderPolygon(ctx:CanvasRenderingContext2D, canvas:HTMLC
     }
 
     // draw outline of shape
-    ctx.strokeStyle = "#ba4a00";
+    ctx.strokeStyle = colours[type].border;
     ctx.lineWidth = 4;
     ctx.beginPath();
     ctx.moveTo(vertices[0].x, vertices[0].y)
